@@ -2,30 +2,42 @@
 import { getCollection } from "astro:content";
 
 interface Props {
-  attachedSlug: string;
+  attachedSlug?: string;
   attachedTo?: "city" | "era" | "topic" | "place";
 }
-const { attachedSlug, attachedTo = "city" } = Astro.props;
+const { attachedSlug, attachedTo } = Astro.props;
 
 const allTrivia = await getCollection("trivia");
-const relevant = allTrivia.filter(t =>
-  (t.data.attached_to === attachedTo && t.data.attached_slug === attachedSlug) ||
-  t.data.attached_to === "city"
-);
-const triviaJson = JSON.stringify(relevant.map(t => ({ id: t.id, content: t.data.content })));
+
+// 如果有 context（city / place 页面），优先 context 相关 + 全局 city trivia
+// 没 context（home / timeline / checklist），用全池
+let pool = allTrivia;
+if (attachedSlug && attachedTo) {
+  const specific = allTrivia.filter(t =>
+    t.data.attached_to === attachedTo && t.data.attached_slug === attachedSlug
+  );
+  const cityWide = allTrivia.filter(t => t.data.attached_to === "city");
+  pool = [...specific, ...cityWide];
+  // 去重
+  const seen = new Set();
+  pool = pool.filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; });
+}
+
+const triviaJson = JSON.stringify(pool.map(t => ({ id: t.id, content: t.data.content })));
 ---
 
 <div id="trivia-float" class="trivia-card" style="display:none">
   <button class="close" id="trivia-close" aria-label="关闭">×</button>
   <div class="trivia-label">你知道吗</div>
   <div class="trivia-content" id="trivia-text"></div>
+  <button class="next" id="trivia-next" aria-label="换一条" title="换一条">↻</button>
 </div>
 
-<script define:vars={{ triviaJson, attachedSlug }}>
+<script define:vars={{ triviaJson }}>
   const RESET_DAYS = 7;
-  const seenKey = `trivia-seen-${attachedSlug}`;
-  const resetKey = `trivia-reset-${attachedSlug}`;
-  const closedKey = `trivia-closed-${attachedSlug}`;
+  const seenKey = `trivia-seen-global`;
+  const resetKey = `trivia-reset-global`;
+  const closedKey = `trivia-closed-session`;
 
   const trivia = JSON.parse(triviaJson);
   if (!trivia.length) {
@@ -38,38 +50,48 @@ const triviaJson = JSON.stringify(relevant.map(t => ({ id: t.id, content: t.data
       localStorage.setItem(resetKey, String(now));
     }
 
-    const seen = JSON.parse(localStorage.getItem(seenKey) ?? "[]");
-    const unseen = trivia.filter(t => !seen.includes(t.id));
-    const pool = unseen.length > 0 ? unseen : trivia;
-    const item = pool[Math.floor(Math.random() * pool.length)];
-
-    const wasClosed = localStorage.getItem(closedKey) === "1";
-    if (!wasClosed) {
-      const card = document.getElementById("trivia-float");
+    function pickAndShow() {
+      const seen = JSON.parse(localStorage.getItem(seenKey) ?? "[]");
+      const unseen = trivia.filter(t => !seen.includes(t.id));
+      const pool = unseen.length > 0 ? unseen : trivia;
+      const item = pool[Math.floor(Math.random() * pool.length)];
       const text = document.getElementById("trivia-text");
-      if (card && text) {
+      if (text) {
         text.textContent = item.content;
-        card.style.display = "block";
-        const newSeen = [...seen, item.id];
+        const newSeen = unseen.length > 0 ? [...seen, item.id] : [item.id];
         localStorage.setItem(seenKey, JSON.stringify(newSeen));
       }
     }
 
+    const wasClosedThisSession = sessionStorage.getItem(closedKey) === "1";
+    if (!wasClosedThisSession) {
+      pickAndShow();
+      const card = document.getElementById("trivia-float");
+      if (card) card.style.display = "block";
+    }
+
     document.getElementById("trivia-close")?.addEventListener("click", () => {
-      document.getElementById("trivia-float")!.style.display = "none";
-      localStorage.setItem(closedKey, "1");
+      document.getElementById("trivia-float").style.display = "none";
+      sessionStorage.setItem(closedKey, "1");
     });
+
+    document.getElementById("trivia-next")?.addEventListener("click", pickAndShow);
   }
 </script>
 
 <style>
   .trivia-card {
-    position: fixed; bottom: 80px; right: 20px; width: 260px;
+    position: fixed; bottom: 80px; right: 20px; width: 280px;
     background: var(--bg-card-elevated); border: 1px solid var(--border-strong);
-    border-radius: 10px; padding: 14px 16px; z-index: 100;
+    border-radius: 10px; padding: 14px 36px 14px 16px; z-index: 100;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
   }
-  .close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: var(--text-muted); font-size: 18px; cursor: pointer; }
+  .close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: var(--text-muted); font-size: 18px; cursor: pointer; line-height: 1; }
+  .next { position: absolute; bottom: 8px; right: 10px; background: none; border: none; color: var(--text-muted); font-size: 14px; cursor: pointer; line-height: 1; }
+  .next:hover, .close:hover { color: var(--era-renaissance); }
   .trivia-label { color: var(--era-renaissance); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
   .trivia-content { color: var(--text-secondary); font-size: 12px; line-height: 1.6; }
+  @media (max-width: 640px) {
+    .trivia-card { width: calc(100% - 40px); bottom: 78px; }
+  }
 </style>

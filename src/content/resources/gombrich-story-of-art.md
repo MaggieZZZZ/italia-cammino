@@ -8,4 +8,8 @@ year: 1950
 hook_zh: "最好的艺术入门书。文艺复兴部分是全书最精彩的章节，读完后进任何一个意大利博物馆都不会茫然。"
 length: "约 500 页（可选读文艺复兴章节）"
 language: "英文 / 中译本（广西美术出版社）"
+starred: true
+related_cities: []
+related_eras: []
+category: art_history
 ---

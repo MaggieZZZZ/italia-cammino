@@ -8,4 +8,8 @@ year: 2016
 hook_zh: 纪录 + 情景重演混搭，节奏快，适合时间紧的入门。第二季讲卡里古拉特别精彩——理解为什么"绝对权力让人疯"。
 length: 3 季
 language: 英文 / 中文字幕
+starred: false
+related_cities: ["roma"]
+related_eras: ["ancient_rome"]
+category: narrative
 ---

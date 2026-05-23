@@ -8,4 +8,8 @@ year: 2018
 hook_zh: 这座教堂盖了 600 年（1386-1965）。读完会知道为什么它是欧洲哥特式建筑里最"折中"的一座——意大利人不真正喜欢哥特，但又被迫学了 600 年。
 length: 约 250 页
 language: 英文
+starred: false
+related_cities: ["milano"]
+related_eras: ["medieval"]
+category: narrative
 ---

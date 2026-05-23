@@ -24,7 +24,7 @@ const validResources = place.data.resources
   .filter(Boolean);
 ---
 
-<Layout title={`${place.data.name_zh} · ${city?.data.name_zh ?? ""}`}>
+<Layout title={`${place.data.name_zh} · ${city?.data.name_zh ?? ""}`} triviaSlug={place.data.slug} triviaType="place">
   <nav class="breadcrumb">
     <a href="/">地图</a> <span>/</span>
     <a href={`/city/${place.data.city}`}>{city?.data.name_zh}</a>

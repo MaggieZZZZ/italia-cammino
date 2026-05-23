@@ -77,7 +77,7 @@ const resources = defineCollection({
   loader: glob({ pattern: "*.md", base: "./src/content/resources" }),
   schema: z.object({
     id: z.string(),
-    type: z.enum(["book", "film", "tv", "doc", "audio", "video", "site", "podcast"]),
+    type: z.enum(["book", "film", "tv", "doc", "audio", "video", "site", "podcast", "music", "app"]),
     title_zh: z.string(),
     title_orig: z.string().optional(),
     creator: z.string().optional(),
@@ -86,6 +86,10 @@ const resources = defineCollection({
     hook_zh: z.string(),
     length: z.string().optional(),
     language: z.string().optional(),
+    starred: z.boolean().default(false),
+    related_cities: z.array(z.string()).default([]),
+    related_eras: z.array(eraEnum).default([]),
+    category: z.enum(["narrative", "art_history", "food", "music", "audio_video", "tool"]).default("narrative"),
   }),
 });
 

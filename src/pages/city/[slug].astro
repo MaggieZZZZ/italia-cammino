@@ -2,7 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 import EraTimeline from "../../components/EraTimeline.astro";
 import PracticalAccordion from "../../components/PracticalAccordion.astro";
-import TriviaCard from "../../components/TriviaCard.astro";
 import ReportButton from "../../components/ReportButton.astro";
 import { getCollection, render } from "astro:content";
 import type { EraId } from "../../lib/eraColors";
@@ -23,7 +22,7 @@ const expandedEra = (Object.entries(city.data.era_weights)
 const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
 ---
 
-<Layout title={`${city.data.name_zh} · 意大利`}>
+<Layout title={`${city.data.name_zh} · 意大利`} triviaSlug={city.data.slug} triviaType="city">
   <nav class="breadcrumb">
     <a href="/">← 地图</a>
     <span>/</span>
@@ -67,7 +66,6 @@ const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
   </section>
 
   <PracticalAccordion citySlug={city.data.slug} />
-  <TriviaCard attachedSlug={city.data.slug} attachedTo="city" />
   <ReportButton pageUrl={`/city/${city.data.slug}`} pageTitle={city.data.name_zh} />
 </Layout>
 
