@@ -682,7 +682,7 @@ const { weights, expanded, citySlug } = Astro.props;
 
 **Files:** `src/pages/index.astro`
 
-- [ ] **Step 1:** 用 Layout + ItalyMap + 右侧城市面板，按 mockup `home-desktop.html` 实现
+- [x] **Step 1:** 用 Layout + ItalyMap + 右侧城市面板，按 mockup `home-desktop.html` 实现
 
 ```astro
 ---
@@ -765,9 +765,9 @@ const candidates = cities.filter(c => c.data.status === "candidate");
 </style>
 ```
 
-- [ ] **Step 2:** `pnpm dev`，验证首页在浏览器里渲染正确 + 钉点可点 + 颜色 = 主轴时代色
+- [x] **Step 2:** `pnpm dev`，验证首页在浏览器里渲染正确 + 钉点可点 + 颜色 = 主轴时代色
 
-- [ ] **Step 3:** Commit
+- [x] **Step 3:** Commit
 
 ---
 

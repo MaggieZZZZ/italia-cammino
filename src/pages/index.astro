@@ -1,17 +1,87 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import ItalyMap from "../components/ItalyMap.astro";
+import { getCollection } from "astro:content";
 
+const cities = (await getCollection("cities")).sort((a, b) => {
+  if (a.data.status !== b.data.status) return a.data.status === "confirmed" ? -1 : 1;
+  return b.data.lat - a.data.lat;
+});
+const confirmed = cities.filter(c => c.data.status === "confirmed");
+const candidates = cities.filter(c => c.data.status === "candidate");
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="意大利 · 行前内容地图">
+  <header class="top-nav">
+    <div class="brand">意大利 · 行前</div>
+    <nav>
+      <a href="/" class="active">地图</a>
+      <a href="/timeline">时代轴</a>
+      <a href="/about">关于</a>
+    </nav>
+  </header>
+
+  <main class="home-grid">
+    <section class="map-area">
+      <ItalyMap cities={cities} />
+    </section>
+
+    <aside class="side-panel">
+      <div class="label">SEPTEMBER 2026 · 行前准备</div>
+      <h2>三个人的意大利</h2>
+      <p class="hint">点地图上的城市看那里的故事。<b>罗马进 · 米兰出</b>。其他可加。</p>
+
+      {confirmed.length > 0 && (
+        <>
+          <div class="label">已确认</div>
+          <ul class="city-list confirmed">
+            {confirmed.map(c => (
+              <li><a href={`/city/${c.data.slug}`} data-city-list-item={c.data.slug}>
+                <b>{c.data.name_zh}</b>
+                <span class="meta">{c.data.suggested_stay ?? ""}</span>
+              </a></li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {candidates.length > 0 && (
+        <>
+          <div class="label">候选 · 点开了解</div>
+          <ul class="city-list candidates">
+            {candidates.map(c => (
+              <li><a href={`/city/${c.data.slug}`} data-city-list-item={c.data.slug}>
+                <b>{c.data.name_zh}</b>
+              </a></li>
+            ))}
+          </ul>
+        </>
+      )}
+    </aside>
+  </main>
+</Layout>
+
+<style>
+  .top-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; }
+  .brand { font-weight: 600; letter-spacing: 0.5px; }
+  .top-nav nav { display: flex; gap: 22px; font-size: 14px; }
+  .top-nav nav a { color: var(--text-muted); }
+  .top-nav nav a.active { color: var(--text); border-bottom: 2px solid var(--era-renaissance); padding-bottom: 4px; }
+
+  .home-grid { display: grid; grid-template-columns: 1fr 320px; min-height: calc(100vh - 56px); }
+  .map-area { background: #0f1419; padding: 30px; display: flex; align-items: center; justify-content: center; }
+  .side-panel { background: var(--bg-card); border-left: 1px solid var(--border); padding: 24px; color: var(--text-secondary); overflow-y: auto; }
+  .label { color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin: 12px 0 8px; }
+  h2 { margin: 4px 0 8px; color: var(--text); font-family: var(--font-serif-zh); font-size: 20px; }
+  .hint { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin: 0 0 12px; }
+  .city-list { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-direction: column; gap: 6px; }
+  .city-list a { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: var(--bg-card-elevated); border-radius: 6px; font-size: 13px; transition: background 0.15s; }
+  .city-list a:hover { background: #2a3340; }
+  .city-list.confirmed a { border-left: 3px solid var(--era-renaissance); }
+  .meta { color: var(--text-muted); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .home-grid { grid-template-columns: 1fr; }
+    .side-panel { border-left: none; border-top: 1px solid var(--border); }
+  }
+</style>
