@@ -996,65 +996,65 @@ const validResources = resources.filter(Boolean);
 
 为节省篇幅，这一段后续 task 用紧凑格式 —— 每个 task 给出**目标 / 关键文件 / 关键代码片段 / 验证方法 / commit 信息**。完整代码在执行时写。
 
-### T12 · CityMiniMap（Leaflet）
+### T12 · CityMiniMap（Leaflet）✅
 - `src/components/CityMiniMap.astro` —— client:load 引入 Leaflet；接收 `placeLat/placeLng/cityLat/cityLng/otherPlaces[]`；渲染 ~200px 高小地图，当前 place 高亮金色，其他 places 灰色
 - 关键：Leaflet 在 SSR 不能直接 import，要在 `<script>` 块里 dynamic import
 - 加到 `[place].astro` 的 sidebar 顶部
 - Commit: `feat: CityMiniMap component using Leaflet`
 
-### T13 · PlaceCard / ResourceItem（提取共用）
+### T13 · PlaceCard / ResourceItem（提取共用）✅
 - 把 `[slug].astro` 和 `[place].astro` 里重复的卡片片段提取为组件
 - Commit: `refactor: extract PlaceCard and ResourceItem components`
 
-### T14 · PracticalAccordion + 3 个子卡
+### T14 · PracticalAccordion + 3 个子卡 ✅
 - `PracticalAccordion.astro` —— 折叠 UI，3 个 slot：吃 / 住 / 交通
 - `RestaurantCard / LodgingCard / TransportCard` —— 按 mockup `city-firenze-practical.html` 实现
 - 每张卡右下角显示 `trust` 星标（`★★★` / `★★`）
 - 加到 `[slug].astro` 底部
 - Commit: `feat: practical accordion with restaurant/lodging/transport cards`
 
-### T15 · TriviaCard（浮卡 + localStorage）
+### T15 · TriviaCard（浮卡 + localStorage）✅
 - `TriviaCard.astro` + `<script>` 处理 localStorage 已读 / 关闭 / 抽签逻辑
 - 暂停 7 天后池子重置；选 attached_to=city 且 slug 匹配的 + attached_to=era 等
 - Commit: `feat: trivia floating card with localStorage memory`
 
-### T16 · ReportButton
+### T16 · ReportButton ✅
 - 固定右下角，点击调 `reportIssueUrl()` 生成 URL 并 `window.open`
 - repo 名从 `import.meta.env.PUBLIC_GH_REPO` 读，默认 `maggie/italia-cammino`
 - Commit: `feat: report-issue button linking to GitHub`
 
-### T17 · ResizableSplit（R1）
+### T17 · ResizableSplit（R1）✅
 - 仅桌面，手机版直接 stack
 - `<ResizableSplit>` 包裹两侧 slot，中间一个 4px 拖动条；mousedown → mousemove 更新左侧 flex-basis；localStorage 持久化；双击恢复默认
 - 用在首页 `index.astro` 的 map-area 和 side-panel 之间
 - Commit: `feat: resizable splitter between map and side panel`
 
-### T18 · 地图↔面板双向联动（R2）
+### T18 · 地图↔面板双向联动（R2）✅
 - 首页 `<script>` 块：监听 `.city-pin` click → `document.querySelector('[data-city-list-item="${slug}"]').scrollIntoView({behavior:'smooth'})` + 加 `selected` class
 - 反向：城市列表 item hover → 给对应 pin 加 `pulsing` class
 - Commit: `feat: bidirectional linkage between map pins and city list`
 
-### T19 · timeline / topic / about 页
+### T19 · timeline / topic / about 页 ✅
 - `timeline.astro` —— 横铺 8 个 era，每个 era 列出权重 > 0 的城市
 - `topic/[slug].astro` —— getStaticPaths + 渲染 summary + resources + related cities
 - `about.astro` —— 静态写"这是什么 / 给三个朋友的 / 怎么用"
 - Commit each: `feat: timeline page` / `feat: topic page` / `feat: about page`
 
-### T20 · 手机响应式
+### T20 · 手机响应式 ✅
 - 已在各组件 `<style>` 里加了 `@media (max-width: 768px)` 关键断点
 - 用 Chrome DevTools iPhone 13 模拟，跑过首页 / 城市页 / 地点页
 - 修任何 overflow 或字号问题
 - 城市页迷你时代轴在手机上加 `overflow-x: auto`，单独展开主轴时代
 - Commit: `fix: mobile responsiveness pass`
 
-### T21 · GitHub repo push + Cloudflare Pages 部署
+### T21 · GitHub repo push + Cloudflare Pages 部署（需手动操作）
 - `gh repo create maggie/italia-cammino --private --source=. --push`
 - 登 Cloudflare dashboard → Pages → Connect to Git → 选 repo → build command `pnpm build` / output dir `dist`
 - 首次部署 + 验证 `italia-cammino.pages.dev` 可访问
 - 加 `PUBLIC_GH_REPO=maggie/italia-cammino` 环境变量（给 ReportButton）
-- Commit: `chore: deployment configuration`（如果有配置文件）
+- Commit: `chore: deployment configuration`（如果有配置文件）✅
 
-### T22 · Lighthouse 跑分
+### T22 · Lighthouse 跑分（待部署后）
 - `pnpm build && pnpm preview`
 - Chrome DevTools → Lighthouse → 跑 Performance + Accessibility + Best Practices + SEO
 - 目标：Performance > 90，其余 > 95
