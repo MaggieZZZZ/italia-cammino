@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import EraTimeline from "../../components/EraTimeline.astro";
 import PracticalAccordion from "../../components/PracticalAccordion.astro";
 import TriviaCard from "../../components/TriviaCard.astro";
+import ReportButton from "../../components/ReportButton.astro";
 import { getCollection, render } from "astro:content";
 import type { EraId } from "../../lib/eraColors";
 
@@ -67,6 +68,7 @@ const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
 
   <PracticalAccordion citySlug={city.data.slug} />
   <TriviaCard attachedSlug={city.data.slug} attachedTo="city" />
+  <ReportButton pageUrl={`/city/${city.data.slug}`} pageTitle={city.data.name_zh} />
 </Layout>
 
 <style>

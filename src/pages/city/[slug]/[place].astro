@@ -1,6 +1,7 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import CityMiniMap from "../../../components/CityMiniMap.astro";
+import ReportButton from "../../../components/ReportButton.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -101,6 +102,7 @@ const validResources = place.data.resources
       )}
     </aside>
   </div>
+  <ReportButton pageUrl={`/city/${place.data.city}/${place.data.slug}`} pageTitle={place.data.name_zh} />
 </Layout>
 
 <style>

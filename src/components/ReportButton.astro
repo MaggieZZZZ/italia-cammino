@@ -1,0 +1,32 @@
+---
+interface Props {
+  pageUrl: string;
+  pageTitle: string;
+}
+const { pageUrl, pageTitle } = Astro.props;
+const repo = import.meta.env.PUBLIC_GH_REPO ?? "maggie/italia-cammino";
+---
+
+<button id="report-btn" class="report-btn" title="报告错误" aria-label="报告页面错误">
+  📝
+</button>
+
+<script define:vars={{ repo, pageUrl, pageTitle }}>
+  document.getElementById("report-btn")?.addEventListener("click", () => {
+    const title = encodeURIComponent(`[报错] ${pageTitle}`);
+    const body = encodeURIComponent(`**页面**: \`${pageUrl}\`\n\n**问题描述**:\n\n（请描述发现的错误，比如：日期不对、地点写错、餐厅已停业……）`);
+    const url = `https://github.com/${repo}/issues/new?title=${title}&body=${body}`;
+    window.open(url, "_blank", "noopener");
+  });
+</script>
+
+<style>
+  .report-btn {
+    position: fixed; bottom: 20px; right: 20px; z-index: 200;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--bg-card-elevated); border: 1px solid var(--border-strong);
+    font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3); transition: transform 0.15s;
+  }
+  .report-btn:hover { transform: scale(1.1); }
+</style>
