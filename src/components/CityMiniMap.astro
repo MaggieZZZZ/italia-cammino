@@ -1,0 +1,40 @@
+---
+interface Props {
+  placeLat?: number;
+  placeLng?: number;
+  cityLat: number;
+  cityLng: number;
+  placeName: string;
+}
+const { placeLat, placeLng, cityLat, cityLng, placeName } = Astro.props;
+const centerLat = placeLat ?? cityLat;
+const centerLng = placeLng ?? cityLng;
+---
+
+<div id="city-mini-map" style="height:200px;border-radius:8px;overflow:hidden;background:#1a1f25;"></div>
+
+<script define:vars={{ centerLat, centerLng, cityLat, cityLng, placeLat, placeLng, placeName }}>
+  import("https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js").then(L => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(link);
+
+    const map = L.default.map("city-mini-map", { zoomControl: false, attributionControl: false })
+      .setView([centerLat, centerLng], 14);
+
+    L.default.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      subdomains: "abcd", maxZoom: 19
+    }).addTo(map);
+
+    if (placeLat && placeLng) {
+      L.default.circleMarker([placeLat, placeLng], {
+        radius: 8, fillColor: "#c9a961", color: "#fff", weight: 2, fillOpacity: 1
+      }).bindTooltip(placeName, { permanent: true, direction: "right", className: "map-label" }).addTo(map);
+    }
+  });
+</script>
+
+<style is:global>
+  .map-label { background: transparent; border: none; box-shadow: none; color: #c9a961; font-size: 11px; font-weight: 600; }
+</style>
