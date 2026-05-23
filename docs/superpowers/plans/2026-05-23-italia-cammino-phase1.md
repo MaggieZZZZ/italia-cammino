@@ -219,7 +219,7 @@ git add -A && git commit -m "feat: design tokens, global CSS, base layout"
 **Files:**
 - Create: `src/content/config.ts`
 
-- [ ] **Step 1:** 定义全 7 个 collection 的 schema（Astro v5 content layer API）
+- [x] **Step 1:** 定义全 7 个 collection 的 schema（Astro v5 content layer API）
 
 ```ts
 import { defineCollection, z, reference } from "astro:content";
@@ -369,9 +369,9 @@ const trivia = defineCollection({
 export const collections = { cities, places, eras, topics, resources, restaurants, lodging, transport, trivia };
 ```
 
-- [ ] **Step 2:** 验证 `pnpm build` 不报错（即使没内容，schema 就绪即可）
+- [x] **Step 2:** 验证 `pnpm build` 不报错（即使没内容，schema 就绪即可）
 
-- [ ] **Step 3:** Commit
+- [x] **Step 3:** Commit
 
 ```bash
 git add -A && git commit -m "feat: define content collection schemas for all 9 entities"
