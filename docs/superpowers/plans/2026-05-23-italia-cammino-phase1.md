@@ -606,7 +606,7 @@ function project(lat: number, lng: number): [number, number] {
 
 **Files:** `src/components/EraTimeline.astro`
 
-- [ ] **Step 1:** 接收 `weights: Record<EraId,number>` 和 `expanded?: EraId` props，渲染 mockup `city-firenze.html` 里那个格子条。格子宽度 = `max(0.5, weight)` flex 单位；权重 0 显示为灰格子。
+- [x] **Step 1:** 接收 `weights: Record<EraId,number>` 和 `expanded?: EraId` props，渲染 mockup `city-firenze.html` 里那个格子条。格子宽度 = `max(0.5, weight)` flex 单位；权重 0 显示为灰格子。
 
 ```astro
 ---
@@ -674,7 +674,7 @@ const { weights, expanded, citySlug } = Astro.props;
 </style>
 ```
 
-- [ ] **Step 2:** Commit
+- [x] **Step 2:** Commit
 
 ---
 

@@ -1,0 +1,63 @@
+---
+import { eraColor, type EraId } from "../lib/eraColors";
+
+const ERA_ORDER: { id: EraId; name: string }[] = [
+  { id: "ancient_rome", name: "古罗马" },
+  { id: "medieval", name: "中世纪" },
+  { id: "renaissance", name: "文艺复兴" },
+  { id: "baroque", name: "巴洛克" },
+  { id: "unification", name: "统一" },
+  { id: "fascism", name: "法西斯" },
+  { id: "postwar", name: "战后" },
+  { id: "contemporary", name: "当代" },
+];
+
+interface Props {
+  weights: Record<EraId, number>;
+  expanded?: EraId;
+  citySlug: string;
+}
+const { weights, expanded, citySlug } = Astro.props;
+---
+
+<div class="era-timeline">
+  {ERA_ORDER.map(({ id, name }) => {
+    const w = weights[id] ?? 0;
+    const flex = Math.max(0.5, w);
+    const color = eraColor(id);
+    const isOn = w > 0;
+    const isExpanded = expanded === id;
+    return (
+      <a
+        href={`/city/${citySlug}#era-${id}`}
+        class:list={["cell", { on: isOn, expanded: isExpanded }]}
+        style={{ flex, "--era-color": color }}
+        data-era={id}
+      >
+        <div class="cell-name">{name}{isExpanded && " ★"}</div>
+        {w > 0 && <div class="cell-meta">权重 {w}</div>}
+      </a>
+    );
+  })}
+</div>
+
+<style>
+  .era-timeline { display: flex; gap: 6px; height: 74px; }
+  .cell {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8px 10px; border-radius: 6px;
+    background: #1a1f25; color: #555; font-size: 11px;
+    text-decoration: none; transition: background 0.15s;
+  }
+  .cell.on {
+    background: #1f2933; color: #aaa;
+    border-left: 3px solid var(--era-color);
+  }
+  .cell.expanded {
+    background: color-mix(in srgb, var(--era-color) 15%, #15191e);
+    color: #fff;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--era-color) 30%, transparent);
+  }
+  .cell-name { font-weight: 500; }
+  .cell-meta { font-size: 9px; opacity: 0.7; margin-top: 3px; }
+</style>
