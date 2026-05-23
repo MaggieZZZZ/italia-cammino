@@ -1,0 +1,56 @@
+---
+interface Props {
+  defaultLeft?: number;
+}
+const { defaultLeft = 65 } = Astro.props;
+---
+
+<div class="split-wrapper" id="split-wrapper">
+  <div class="split-left" id="split-left" style={{ flexBasis: `${defaultLeft}%` }}>
+    <slot name="left" />
+  </div>
+  <div class="split-handle" id="split-handle" title="拖动调整 · 双击恢复"></div>
+  <div class="split-right" id="split-right">
+    <slot name="right" />
+  </div>
+</div>
+
+<script define:vars={{ defaultLeft }}>
+  const wrapper = document.getElementById("split-wrapper");
+  const left = document.getElementById("split-left");
+  const handle = document.getElementById("split-handle");
+  if (!wrapper || !left || !handle) return;
+
+  const STORAGE_KEY = "split-left-pct";
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) left.style.flexBasis = saved + "%";
+
+  let dragging = false;
+  handle.addEventListener("mousedown", () => { dragging = true; });
+  document.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+    const rect = wrapper.getBoundingClientRect();
+    const pct = Math.max(20, Math.min(80, ((e.clientX - rect.left) / rect.width) * 100));
+    left.style.flexBasis = pct + "%";
+    localStorage.setItem(STORAGE_KEY, String(pct.toFixed(1)));
+  });
+  document.addEventListener("mouseup", () => { dragging = false; });
+  handle.addEventListener("dblclick", () => {
+    left.style.flexBasis = defaultLeft + "%";
+    localStorage.removeItem(STORAGE_KEY);
+  });
+</script>
+
+<style>
+  .split-wrapper { display: flex; width: 100%; min-height: calc(100vh - 56px); }
+  .split-left { flex-shrink: 0; min-width: 200px; }
+  .split-right { flex: 1; min-width: 200px; overflow-y: auto; }
+  .split-handle { width: 4px; cursor: col-resize; background: var(--border); flex-shrink: 0; transition: background 0.15s; }
+  .split-handle:hover { background: var(--era-renaissance); }
+
+  @media (max-width: 768px) {
+    .split-wrapper { flex-direction: column; }
+    .split-handle { display: none; }
+    .split-left, .split-right { flex-basis: auto !important; width: 100%; }
+  }
+</style>

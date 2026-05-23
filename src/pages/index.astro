@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ItalyMap from "../components/ItalyMap.astro";
+import ResizableSplit from "../components/ResizableSplit.astro";
 import { getCollection } from "astro:content";
 
 const cities = (await getCollection("cities")).sort((a, b) => {
@@ -21,12 +22,12 @@ const candidates = cities.filter(c => c.data.status === "candidate");
     </nav>
   </header>
 
-  <main class="home-grid">
-    <section class="map-area">
-      <ItalyMap cities={cities} />
-    </section>
-
-    <aside class="side-panel">
+  <main>
+    <ResizableSplit defaultLeft={65}>
+      <section slot="left" class="map-area">
+        <ItalyMap cities={cities} />
+      </section>
+      <aside slot="right" class="side-panel">
       <div class="label">SEPTEMBER 2026 · 行前准备</div>
       <h2>三个人的意大利</h2>
       <p class="hint">点地图上的城市看那里的故事。<b>罗马进 · 米兰出</b>。其他可加。</p>
@@ -57,7 +58,8 @@ const candidates = cities.filter(c => c.data.status === "candidate");
           </ul>
         </>
       )}
-    </aside>
+      </aside>
+    </ResizableSplit>
   </main>
 </Layout>
 
@@ -68,7 +70,6 @@ const candidates = cities.filter(c => c.data.status === "candidate");
   .top-nav nav a { color: var(--text-muted); }
   .top-nav nav a.active { color: var(--text); border-bottom: 2px solid var(--era-renaissance); padding-bottom: 4px; }
 
-  .home-grid { display: grid; grid-template-columns: 1fr 320px; min-height: calc(100vh - 56px); }
   .map-area { background: #0f1419; padding: 30px; display: flex; align-items: center; justify-content: center; }
   .side-panel { background: var(--bg-card); border-left: 1px solid var(--border); padding: 24px; color: var(--text-secondary); overflow-y: auto; }
   .label { color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin: 12px 0 8px; }
