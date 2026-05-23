@@ -1,0 +1,77 @@
+---
+import RestaurantCard from "./RestaurantCard.astro";
+import LodgingCard from "./LodgingCard.astro";
+import TransportCard from "./TransportCard.astro";
+import { getCollection } from "astro:content";
+
+interface Props { citySlug: string; }
+const { citySlug } = Astro.props;
+
+const restaurants = await getCollection("restaurants", r => r.data.city === citySlug);
+const lodgings = await getCollection("lodging", l => l.data.city === citySlug);
+const transports = await getCollection("transport",
+  t => t.data.from_city === citySlug || t.data.to_city === citySlug);
+---
+
+<section class="practical-accordion">
+  <details class="section">
+    <summary>🍝 吃 · {restaurants.length} 家推荐</summary>
+    <div class="cards">
+      {restaurants.map(r => (
+        <RestaurantCard
+          name={r.data.name}
+          area={r.data.area}
+          price={r.data.price}
+          dishes={r.data.dishes}
+          hours={r.data.hours}
+          trust={r.data.trust}
+          source={r.data.source}
+        >
+          <div class="card-body"><slot /></div>
+        </RestaurantCard>
+      ))}
+    </div>
+  </details>
+
+  <details class="section">
+    <summary>🛏 住 · {lodgings.length} 个区域</summary>
+    <div class="cards">
+      {lodgings.map(l => (
+        <LodgingCard
+          area_name={l.data.area_name}
+          suitable_for={l.data.suitable_for}
+          search_tips={l.data.search_tips}
+          trust={l.data.trust}
+        />
+      ))}
+    </div>
+  </details>
+
+  <details class="section">
+    <summary>🚆 交通 · {transports.length} 条路线</summary>
+    <div class="cards">
+      {transports.map(t => (
+        <TransportCard
+          from_city={t.data.from_city}
+          to_city={t.data.to_city}
+          mode={t.data.mode}
+          operator={t.data.operator}
+          duration={t.data.duration}
+          cost_estimate={t.data.cost_estimate}
+          when_to_book={t.data.when_to_book}
+          trust={t.data.trust}
+          booking_url={t.data.booking_url}
+        />
+      ))}
+    </div>
+  </details>
+</section>
+
+<style>
+  .practical-accordion { border-top: 1px solid var(--border); }
+  .section { border-bottom: 1px solid var(--border); }
+  summary { padding: 16px 32px; cursor: pointer; color: var(--text-secondary); font-size: 14px; list-style: none; display: flex; align-items: center; gap: 8px; }
+  summary:hover { background: var(--bg-card); }
+  details[open] summary { color: var(--text); background: var(--bg-card); }
+  .cards { padding: 12px 32px 20px; background: var(--bg-card); }
+</style>

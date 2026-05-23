@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import EraTimeline from "../../components/EraTimeline.astro";
+import PracticalAccordion from "../../components/PracticalAccordion.astro";
 import { getCollection, render } from "astro:content";
 import type { EraId } from "../../lib/eraColors";
 
@@ -62,6 +63,8 @@ const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
       )}
     </div>
   </section>
+
+  <PracticalAccordion citySlug={city.data.slug} />
 </Layout>
 
 <style>

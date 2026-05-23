@@ -1,0 +1,27 @@
+---
+interface Props {
+  area_name: string;
+  suitable_for?: string;
+  search_tips?: string;
+  trust: number;
+}
+const { area_name, suitable_for, search_tips, trust } = Astro.props;
+const stars = "★".repeat(trust);
+---
+<div class="lodging-card">
+  <div class="card-top">
+    <b class="area-name">{area_name}</b>
+    <span class="trust">{stars}</span>
+  </div>
+  {suitable_for && <div class="suitable">{suitable_for}</div>}
+  {search_tips && <div class="tips">{search_tips}</div>}
+  <slot />
+</div>
+<style>
+  .lodging-card { background: #1a1f25; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+  .card-top { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .area-name { color: var(--text); font-size: 13px; }
+  .trust { color: var(--era-renaissance); font-size: 11px; }
+  .suitable { color: var(--text-secondary); font-size: 11px; margin-bottom: 4px; }
+  .tips { color: var(--text-muted); font-size: 11px; line-height: 1.5; }
+</style>

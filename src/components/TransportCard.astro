@@ -1,0 +1,43 @@
+---
+interface Props {
+  from_city: string;
+  to_city: string;
+  mode: string;
+  operator?: string;
+  duration: string;
+  cost_estimate?: string;
+  when_to_book?: string;
+  trust: number;
+  booking_url?: string;
+}
+const { from_city, to_city, mode, operator, duration, cost_estimate, when_to_book, trust, booking_url } = Astro.props;
+const stars = "★".repeat(trust);
+---
+<div class="transport-card">
+  <div class="card-top">
+    <div>
+      <span class="mode">{mode}</span>
+      <b class="route">{from_city} → {to_city}</b>
+      {operator && <span class="operator">· {operator}</span>}
+    </div>
+    <span class="trust">{stars}</span>
+  </div>
+  <div class="meta-row">
+    <span>{duration}</span>
+    {cost_estimate && <span>{cost_estimate}</span>}
+  </div>
+  {when_to_book && <div class="tips">{when_to_book}</div>}
+  {booking_url && <a href={booking_url} target="_blank" rel="noopener" class="book-link">购票 →</a>}
+  <slot />
+</div>
+<style>
+  .transport-card { background: #1a1f25; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .mode { background: var(--bg-card-elevated); color: var(--text-muted); font-size: 9px; padding: 2px 5px; border-radius: 3px; text-transform: uppercase; margin-right: 6px; }
+  .route { color: var(--text); font-size: 13px; }
+  .operator { color: var(--text-muted); font-size: 11px; }
+  .trust { color: var(--era-renaissance); font-size: 11px; }
+  .meta-row { display: flex; gap: 16px; color: var(--text-secondary); font-size: 12px; margin-bottom: 4px; }
+  .tips { color: var(--text-muted); font-size: 11px; line-height: 1.5; }
+  .book-link { font-size: 11px; color: var(--era-renaissance); margin-top: 6px; display: inline-block; }
+</style>
