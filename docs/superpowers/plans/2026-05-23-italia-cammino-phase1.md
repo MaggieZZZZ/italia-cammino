@@ -123,7 +123,7 @@ git add -A && git commit -m "chore: scaffold Astro project with TypeScript + Lea
 - Create: `src/styles/tokens.css`, `src/styles/global.css`
 - Modify: `src/layouts/Layout.astro`（脚手架可能没有，需创建）
 
-- [ ] **Step 1:** 写 `src/styles/tokens.css` — 颜色、字号、间距、era 色板（全部 CSS variables）
+- [x] **Step 1:** 写 `src/styles/tokens.css` — 颜色、字号、间距、era 色板（全部 CSS variables）
 
 ```css
 :root {
@@ -164,7 +164,7 @@ git add -A && git commit -m "chore: scaffold Astro project with TypeScript + Lea
 }
 ```
 
-- [ ] **Step 2:** 写 `src/styles/global.css` — reset + 默认排版 + 字体加载
+- [x] **Step 2:** 写 `src/styles/global.css` — reset + 默认排版 + 字体加载
 
 ```css
 @import "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Cormorant+Garamond:wght@400;600&display=swap";
@@ -183,7 +183,7 @@ img { max-width: 100%; display: block; }
 .prose p:last-child { margin-bottom: 0; }
 ```
 
-- [ ] **Step 3:** 创建 `src/layouts/Layout.astro`（基础布局，所有页面套）
+- [x] **Step 3:** 创建 `src/layouts/Layout.astro`（基础布局，所有页面套）
 
 ```astro
 ---
@@ -206,7 +206,7 @@ import "../styles/global.css";
 </html>
 ```
 
-- [ ] **Step 4:** Commit
+- [x] **Step 4:** Commit
 
 ```bash
 git add -A && git commit -m "feat: design tokens, global CSS, base layout"
