@@ -63,6 +63,26 @@ const candidates = cities.filter(c => c.data.status === "candidate");
   </main>
 </Layout>
 
+<script>
+  // R2: bidirectional map pin ↔ city list linkage
+  document.querySelectorAll<SVGElement>(".city-pin").forEach(pin => {
+    const slug = pin.dataset.slug;
+    if (!slug) return;
+    const listItem = document.querySelector<HTMLElement>(`[data-city-list-item="${slug}"]`);
+
+    pin.addEventListener("click", () => {
+      document.querySelectorAll("[data-city-list-item]").forEach(el => el.classList.remove("selected"));
+      listItem?.classList.add("selected");
+      listItem?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+
+    if (listItem) {
+      listItem.addEventListener("mouseenter", () => pin.classList.add("pulsing"));
+      listItem.addEventListener("mouseleave", () => pin.classList.remove("pulsing"));
+    }
+  });
+</script>
+
 <style>
   .top-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; }
   .brand { font-weight: 600; letter-spacing: 0.5px; }
@@ -78,11 +98,11 @@ const candidates = cities.filter(c => c.data.status === "candidate");
   .city-list { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-direction: column; gap: 6px; }
   .city-list a { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: var(--bg-card-elevated); border-radius: 6px; font-size: 13px; transition: background 0.15s; }
   .city-list a:hover { background: #2a3340; }
+  .city-list a.selected { background: #2a3340; outline: 1px solid var(--era-renaissance); }
   .city-list.confirmed a { border-left: 3px solid var(--era-renaissance); }
   .meta { color: var(--text-muted); font-size: 11px; }
 
   @media (max-width: 768px) {
-    .home-grid { grid-template-columns: 1fr; }
     .side-panel { border-left: none; border-top: 1px solid var(--border); }
   }
 </style>
