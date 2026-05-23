@@ -1,0 +1,88 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const topics = await getCollection("topics");
+  return topics.map(t => ({ params: { slug: t.data.slug }, props: { topic: t } }));
+}
+
+const { topic } = Astro.props;
+const { Content: SummaryContent } = await render(topic);
+
+const allResources = await getCollection("resources");
+const topicResources = topic.data.resources
+  .map(id => allResources.find(r => r.data.id === id))
+  .filter(Boolean);
+
+const cities = await getCollection("cities");
+const relatedCities = topic.data.related_cities
+  .map(slug => cities.find(c => c.data.slug === slug))
+  .filter(Boolean);
+---
+
+<Layout title={`${topic.data.name_zh} · 意大利`}>
+  <nav class="breadcrumb">
+    <a href="/">地图</a>
+    <span>/</span>
+    <b>{topic.data.name_zh}</b>
+  </nav>
+
+  <div class="topic-body">
+    <article class="summary">
+      <div class="category-tag">{topic.data.category}</div>
+      <h1>{topic.data.name_zh}</h1>
+      {topic.data.name_en && <div class="name-en">{topic.data.name_en}</div>}
+      <div class="prose"><SummaryContent /></div>
+
+      {relatedCities.length > 0 && (
+        <div class="related">
+          <div class="label">关联城市</div>
+          <div class="chips">
+            {relatedCities.map(c => (
+              <a href={`/city/${c!.data.slug}`} class="chip">{c!.data.name_zh}</a>
+            ))}
+          </div>
+        </div>
+      )}
+    </article>
+
+    {topicResources.length > 0 && (
+      <aside class="resources">
+        <div class="label">延伸阅读</div>
+        {topicResources.map(r => (
+          <div class="resource">
+            <div class="res-head">
+              <span class="rtype">{r!.data.type}</span>
+              <b>{r!.data.title_zh}</b>
+            </div>
+            <div class="rhook">{r!.data.hook_zh}</div>
+            {r!.data.url && <a href={r!.data.url} target="_blank" rel="noopener" class="rlink">查看 →</a>}
+          </div>
+        ))}
+      </aside>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .breadcrumb { padding: 12px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; font-size: 13px; color: var(--text-muted); display: flex; gap: 8px; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb b { color: var(--text); }
+  .topic-body { display: grid; grid-template-columns: 1.5fr 1fr; min-height: 400px; }
+  .summary { padding: 32px 40px; }
+  .category-tag { background: color-mix(in srgb, var(--era-renaissance) 15%, #15191e); color: var(--era-renaissance); padding: 3px 9px; border-radius: 11px; font-size: 10px; text-transform: uppercase; display: inline-block; margin-bottom: 8px; }
+  .summary h1 { font-family: var(--font-serif-zh); font-size: 28px; margin: 0 0 4px; }
+  .name-en { color: var(--text-muted); font-style: italic; margin-bottom: 20px; }
+  .label { color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin: 24px 0 10px; }
+  .related .label { margin-top: 28px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: var(--bg-card-elevated); color: var(--text-secondary); padding: 6px 12px; border-radius: 14px; font-size: 12px; }
+  .resources { background: var(--bg-card); border-left: 1px solid var(--border); padding: 32px 28px; }
+  .resource { background: #1a1f25; padding: 12px 14px; border-radius: 7px; margin-bottom: 10px; }
+  .res-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .rtype { background: var(--bg-card-elevated); color: var(--text-muted); font-size: 9px; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
+  .rhook { color: #999; font-size: 11.5px; line-height: 1.5; }
+  .rlink { font-size: 11px; color: var(--era-renaissance); margin-top: 6px; display: inline-block; }
+  @media (max-width: 768px) { .topic-body { grid-template-columns: 1fr; } }
+</style>
