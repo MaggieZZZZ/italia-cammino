@@ -451,7 +451,7 @@ git add -A && git commit -m "feat: eraColors lib with unit tests"
 **Files:**
 - Create: `src/lib/reportIssueLink.ts`, `src/lib/reportIssueLink.test.ts`
 
-- [ ] **Step 1:** 测试
+- [x] **Step 1:** 测试
 
 ```ts
 import { describe, it, expect } from "vitest";
@@ -472,7 +472,7 @@ describe("reportIssueUrl", () => {
 });
 ```
 
-- [ ] **Step 2:** 实现
+- [x] **Step 2:** 实现
 
 ```ts
 export interface ReportArgs {
@@ -489,9 +489,9 @@ export function reportIssueUrl({ repo, pageUrl, pageTitle }: ReportArgs): string
 }
 ```
 
-- [ ] **Step 3:** `pnpm test` 全绿
+- [x] **Step 3:** `pnpm test` 全绿
 
-- [ ] **Step 4:** Commit
+- [x] **Step 4:** Commit
 
 ---
 
