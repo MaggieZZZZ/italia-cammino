@@ -1,0 +1,24 @@
+---
+interface Props {
+  type: string;
+  title_zh: string;
+  hook_zh: string;
+  url?: string;
+}
+const { type, title_zh, hook_zh, url } = Astro.props;
+---
+<div class="resource">
+  <div class="resource-head">
+    <span class="rtype">{type}</span>
+    <b>{title_zh}</b>
+  </div>
+  <div class="rhook">{hook_zh}</div>
+  {url && <a href={url} target="_blank" rel="noopener" class="rlink">查看 →</a>}
+</div>
+<style>
+  .resource { background: #1a1f25; padding: 12px 14px; border-radius: 7px; margin-bottom: 10px; }
+  .resource-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .rtype { background: var(--bg-card-elevated); color: var(--text-muted); font-size: 9px; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
+  .rhook { color: #999; font-size: 11.5px; line-height: 1.5; }
+  .rlink { font-size: 11px; color: var(--era-renaissance); margin-top: 6px; display: inline-block; }
+</style>

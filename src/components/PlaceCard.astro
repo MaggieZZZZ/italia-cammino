@@ -1,0 +1,19 @@
+---
+interface Props {
+  slug: string;
+  citySlug: string;
+  name_zh: string;
+  hook: string;
+  era?: string;
+}
+const { slug, citySlug, name_zh, hook, era } = Astro.props;
+---
+<a class="place-card" href={`/city/${citySlug}/${slug}`}>
+  <b>{name_zh}</b>
+  <div class="hook">{hook}</div>
+</a>
+<style>
+  .place-card { background: #1a1f25; padding: 14px 16px; border-radius: 8px; border-left: 3px solid var(--era-renaissance); display: block; }
+  .place-card b { color: var(--text); display: block; }
+  .hook { color: #999; font-size: 12px; margin-top: 6px; line-height: 1.55; }
+</style>
