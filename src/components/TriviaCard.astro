@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  attachedSlug: string;
+  attachedTo?: "city" | "era" | "topic" | "place";
+}
+const { attachedSlug, attachedTo = "city" } = Astro.props;
+
+const allTrivia = await getCollection("trivia");
+const relevant = allTrivia.filter(t =>
+  (t.data.attached_to === attachedTo && t.data.attached_slug === attachedSlug) ||
+  t.data.attached_to === "city"
+);
+const triviaJson = JSON.stringify(relevant.map(t => ({ id: t.id, content: t.data.content })));
+---
+
+<div id="trivia-float" class="trivia-card" style="display:none">
+  <button class="close" id="trivia-close" aria-label="关闭">×</button>
+  <div class="trivia-label">你知道吗</div>
+  <div class="trivia-content" id="trivia-text"></div>
+</div>
+
+<script define:vars={{ triviaJson, attachedSlug }}>
+  const RESET_DAYS = 7;
+  const seenKey = `trivia-seen-${attachedSlug}`;
+  const resetKey = `trivia-reset-${attachedSlug}`;
+  const closedKey = `trivia-closed-${attachedSlug}`;
+
+  const trivia = JSON.parse(triviaJson);
+  if (!trivia.length) {
+    document.getElementById("trivia-float")?.remove();
+  } else {
+    const now = Date.now();
+    const resetTime = parseInt(localStorage.getItem(resetKey) ?? "0");
+    if (now - resetTime > RESET_DAYS * 86400 * 1000) {
+      localStorage.removeItem(seenKey);
+      localStorage.setItem(resetKey, String(now));
+    }
+
+    const seen = JSON.parse(localStorage.getItem(seenKey) ?? "[]");
+    const unseen = trivia.filter(t => !seen.includes(t.id));
+    const pool = unseen.length > 0 ? unseen : trivia;
+    const item = pool[Math.floor(Math.random() * pool.length)];
+
+    const wasClosed = localStorage.getItem(closedKey) === "1";
+    if (!wasClosed) {
+      const card = document.getElementById("trivia-float");
+      const text = document.getElementById("trivia-text");
+      if (card && text) {
+        text.textContent = item.content;
+        card.style.display = "block";
+        const newSeen = [...seen, item.id];
+        localStorage.setItem(seenKey, JSON.stringify(newSeen));
+      }
+    }
+
+    document.getElementById("trivia-close")?.addEventListener("click", () => {
+      document.getElementById("trivia-float")!.style.display = "none";
+      localStorage.setItem(closedKey, "1");
+    });
+  }
+</script>
+
+<style>
+  .trivia-card {
+    position: fixed; bottom: 80px; right: 20px; width: 260px;
+    background: var(--bg-card-elevated); border: 1px solid var(--border-strong);
+    border-radius: 10px; padding: 14px 16px; z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: var(--text-muted); font-size: 18px; cursor: pointer; }
+  .trivia-label { color: var(--era-renaissance); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .trivia-content { color: var(--text-secondary); font-size: 12px; line-height: 1.6; }
+</style>
