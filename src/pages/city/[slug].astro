@@ -1,0 +1,88 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import EraTimeline from "../../components/EraTimeline.astro";
+import { getCollection, render } from "astro:content";
+import type { EraId } from "../../lib/eraColors";
+
+export async function getStaticPaths() {
+  const cities = await getCollection("cities");
+  return cities.map(c => ({ params: { slug: c.data.slug }, props: { city: c } }));
+}
+
+const { city } = Astro.props;
+const { Content: PersonaContent } = await render(city);
+
+const allPlaces = await getCollection("places", p => p.data.city === city.data.slug);
+
+const expandedEra = (Object.entries(city.data.era_weights)
+  .sort(([,a], [,b]) => (b as number) - (a as number))[0]?.[0] ?? "renaissance") as EraId;
+
+const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
+---
+
+<Layout title={`${city.data.name_zh} · 意大利`}>
+  <nav class="breadcrumb">
+    <a href="/">← 地图</a>
+    <span>/</span>
+    <b>{city.data.name_zh}</b>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-image" style={{ background: "linear-gradient(135deg,#3a2a1a 0%,#5a3520 60%,#8a5a3a 100%)" }}>
+      <div class="hero-text">
+        <div class="city-it">{city.data.name_it.toUpperCase()}</div>
+        <h1>{city.data.name_zh}</h1>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="label">这座城市的人格</div>
+      <div class="prose"><PersonaContent /></div>
+      {city.data.suggested_stay && (
+        <div class="stay-hint">建议停留 {city.data.suggested_stay}</div>
+      )}
+    </div>
+  </section>
+
+  <section class="timeline-section">
+    <div class="label">{city.data.name_zh}的时代轴 · 格子大小 = 这里这段时代的分量</div>
+    <EraTimeline weights={city.data.era_weights} expanded={expandedEra} citySlug={city.data.slug} />
+  </section>
+
+  <section class="expanded-era" id={`era-${expandedEra}`}>
+    <h3>展开 · {expandedEra} 在 {city.data.name_zh}</h3>
+    <div class="places-grid">
+      {placesInExpandedEra.map(p => (
+        <a class="place-card" href={`/city/${city.data.slug}/${p.data.slug}`}>
+          <b>{p.data.name_zh}</b>
+          <div class="hook">{p.data.hook}</div>
+        </a>
+      ))}
+      {placesInExpandedEra.length === 0 && (
+        <p class="empty">暂无地点 · Phase 2 补充</p>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .breadcrumb { padding: 12px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; font-size: 13px; color: var(--text-muted); display: flex; gap: 8px; align-items: center; }
+  .breadcrumb b { color: var(--text); }
+  .breadcrumb a { color: var(--text-muted); }
+  .hero { display: grid; grid-template-columns: 1.3fr 1fr; min-height: 280px; }
+  .hero-image { position: relative; display: flex; align-items: flex-end; padding: 24px; color: var(--text); }
+  .hero-text { }
+  .city-it { font-size: 11px; letter-spacing: 2px; color: var(--era-renaissance); }
+  .hero-image h1 { font-family: var(--font-serif-zh); font-size: 32px; margin: 4px 0 0; font-weight: 600; }
+  .hero-side { padding: 30px 32px; }
+  .label { color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .stay-hint { margin-top: 18px; font-size: 11px; color: var(--text-faint); }
+  .timeline-section { padding: 30px 32px; border-top: 1px solid var(--border); }
+  .expanded-era { background: var(--bg-card); padding: 24px 32px 36px; border-top: 1px solid var(--border); }
+  .expanded-era h3 { margin: 6px 0 18px; font-family: var(--font-serif-zh); color: var(--text); }
+  .places-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+  .place-card { background: #1a1f25; padding: 14px 16px; border-radius: 8px; border-left: 3px solid var(--era-renaissance); display: block; }
+  .place-card b { color: var(--text); display: block; }
+  .hook { color: #999; font-size: 12px; margin-top: 6px; line-height: 1.55; }
+  .empty { color: var(--text-faint); font-size: 13px; }
+  @media (max-width: 768px) { .hero { grid-template-columns: 1fr; } }
+</style>

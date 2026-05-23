@@ -775,7 +775,7 @@ const candidates = cities.filter(c => c.data.status === "candidate");
 
 **Files:** `src/pages/city/[slug].astro`
 
-- [ ] **Step 1:** getStaticPaths + 按 mockup `city-firenze.html` 实现 Hero + EraTimeline + 展开区。展开区显示该城市该时代的所有 places。
+- [x] **Step 1:** getStaticPaths + 按 mockup `city-firenze.html` 实现 Hero + EraTimeline + 展开区。展开区显示该城市该时代的所有 places。
 
 ```astro
 ---
@@ -868,9 +868,9 @@ const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
 </style>
 ```
 
-- [ ] **Step 2:** dev 验证 `/city/firenze` 渲染
+- [x] **Step 2:** dev 验证 `/city/firenze` 渲染
 
-- [ ] **Step 3:** Commit
+- [x] **Step 3:** Commit
 
 ---
 
