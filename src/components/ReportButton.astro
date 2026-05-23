@@ -7,14 +7,14 @@ const { pageUrl, pageTitle } = Astro.props;
 const repo = import.meta.env.PUBLIC_GH_REPO ?? "MaggieZZZZ/italia-cammino";
 ---
 
-<button id="report-btn" class="report-btn" title="报告错误" aria-label="报告页面错误">
-  📝
+<button id="report-btn" class="report-btn" title="哔哔赖赖" aria-label="哔哔赖赖 - 反馈和想法">
+  💬
 </button>
 
 <script define:vars={{ repo, pageUrl, pageTitle }}>
   document.getElementById("report-btn")?.addEventListener("click", () => {
-    const title = encodeURIComponent(`[报错] ${pageTitle}`);
-    const body = encodeURIComponent(`**页面**: \`${pageUrl}\`\n\n**问题描述**:\n\n（请描述发现的错误，比如：日期不对、地点写错、餐厅已停业……）`);
+    const title = encodeURIComponent(`[哔哔赖赖] ${pageTitle}`);
+    const body = encodeURIComponent(`**页面**: \`${pageUrl}\`\n\n**想到啥写啥**（吐槽 / 建议 / 想加的地方 / 觉得哪里写得不对 / 想去的餐厅 / 任何）：\n\n`);
     const url = `https://github.com/${repo}/issues/new?title=${title}&body=${body}`;
     window.open(url, "_blank", "noopener");
   });
