@@ -1,0 +1,121 @@
+<h2>首页 · 地图视图（桌面）</h2>
+<p class="subtitle">点开后第一眼看到的东西。Wireframe，不是最终视觉。</p>
+
+<div class="mockup">
+  <div class="mockup-header">/ · 行前内容地图 · 桌面 1280×800</div>
+  <div class="mockup-body" style="padding:0">
+
+    <!-- Top nav -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #2a2a2a;background:#1a1a1a">
+      <div style="font-weight:600;letter-spacing:.5px">意大利 · 行前</div>
+      <div style="display:flex;gap:22px;font-size:14px;color:#aaa">
+        <span style="color:#fff;border-bottom:2px solid #c9a961;padding-bottom:4px">地图</span>
+        <span>城市</span>
+        <span>时代轴</span>
+        <span>主题</span>
+        <span style="margin-left:18px;color:#777">关于</span>
+      </div>
+    </div>
+
+    <!-- Main area: map left, side panel right -->
+    <div style="display:grid;grid-template-columns:1fr 320px;min-height:520px">
+
+      <!-- Map -->
+      <div style="position:relative;background:#0f1419;padding:30px">
+        <!-- Stylized Italy SVG -->
+        <svg viewBox="0 0 360 480" style="width:100%;height:100%;max-height:520px">
+          <!-- Italy outline (very rough boot shape) -->
+          <path d="M120,40 L160,30 L185,55 L210,80 L195,110 L215,140 L240,160 L235,200 L250,230 L240,265 L220,300 L215,340 L195,375 L175,405 L155,430 L145,450 L130,440 L140,410 L155,375 L165,340 L155,310 L130,290 L115,260 L100,225 L95,190 L100,150 L110,110 L115,75 Z"
+                fill="#1f2933" stroke="#3a4753" stroke-width="1.5"/>
+          <!-- Sicily -->
+          <ellipse cx="135" cy="470" rx="28" ry="12" fill="#1f2933" stroke="#3a4753" stroke-width="1.5"/>
+          <!-- Sardinia (for completeness, gray) -->
+          <ellipse cx="55" cy="320" rx="14" ry="28" fill="#1a2129" stroke="#2a3540" stroke-width="1"/>
+
+          <!-- Roma → Milano route (highlighted dashed line) -->
+          <path d="M155,75 Q175,180 200,265" stroke="#c9a961" stroke-width="2" stroke-dasharray="5,4" fill="none" opacity=".7"/>
+
+          <!-- City pins. Color = dominant era weight -->
+          <!-- Milano (start of "out") -->
+          <g>
+            <circle cx="155" cy="75" r="8" fill="#c9a961" stroke="#fff" stroke-width="2"/>
+            <text x="170" y="80" fill="#fff" font-size="13" font-weight="600">米兰</text>
+            <text x="170" y="94" fill="#888" font-size="10">出 · 当代</text>
+          </g>
+          <!-- Venezia -->
+          <g>
+            <circle cx="215" cy="105" r="7" fill="#3d8a8a" stroke="#fff" stroke-width="1.5"/>
+            <text x="230" y="109" fill="#fff" font-size="13">威尼斯</text>
+            <text x="230" y="122" fill="#888" font-size="10">中世纪海上共和国</text>
+          </g>
+          <!-- Ravenna (candidate, dim) -->
+          <g opacity=".55">
+            <circle cx="210" cy="155" r="5" fill="#7a5cc4" stroke="#aaa" stroke-width="1"/>
+            <text x="222" y="159" fill="#aaa" font-size="11">拉文纳</text>
+            <text x="222" y="171" fill="#666" font-size="9">拜占庭</text>
+          </g>
+          <!-- Cinque Terre (candidate, dim) -->
+          <g opacity=".55">
+            <circle cx="140" cy="180" r="5" fill="#7aa66b" stroke="#aaa" stroke-width="1"/>
+            <text x="60" y="184" fill="#aaa" font-size="11">五渔村</text>
+          </g>
+          <!-- Firenze -->
+          <g>
+            <circle cx="180" cy="210" r="8" fill="#c9a961" stroke="#fff" stroke-width="2"/>
+            <text x="195" y="214" fill="#fff" font-size="13" font-weight="600">佛罗伦萨</text>
+            <text x="195" y="228" fill="#888" font-size="10">文艺复兴</text>
+          </g>
+          <!-- Roma + Vaticano -->
+          <g>
+            <circle cx="200" cy="265" r="9" fill="#b8543d" stroke="#fff" stroke-width="2"/>
+            <text x="216" y="269" fill="#fff" font-size="13" font-weight="600">罗马 · 梵蒂冈</text>
+            <text x="216" y="283" fill="#888" font-size="10">进 · 古罗马 + 巴洛克</text>
+          </g>
+          <!-- Pompei (candidate) -->
+          <g opacity=".55">
+            <circle cx="225" cy="335" r="5" fill="#b8543d" stroke="#aaa" stroke-width="1"/>
+            <text x="237" y="339" fill="#aaa" font-size="11">庞贝 · 那不勒斯</text>
+          </g>
+          <!-- Palermo -->
+          <g opacity=".5">
+            <circle cx="120" cy="470" r="5" fill="#a26a44" stroke="#888" stroke-width="1"/>
+            <text x="155" y="475" fill="#888" font-size="11">巴勒莫</text>
+          </g>
+        </svg>
+
+        <!-- Legend (bottom) -->
+        <div style="position:absolute;bottom:18px;left:30px;font-size:11px;color:#888;display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#b8543d;border-radius:50%"></span>古罗马</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#3d8a8a;border-radius:50%"></span>中世纪</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#c9a961;border-radius:50%"></span>文艺复兴 / 当代</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#7a5cc4;border-radius:50%"></span>拜占庭</span>
+          <span style="margin-left:14px">— — 你的动线（罗马 → 米兰）</span>
+        </div>
+      </div>
+
+      <!-- Right side panel -->
+      <div style="background:#15191e;border-left:1px solid #2a2a2a;padding:24px;color:#ddd">
+        <div class="label" style="color:#888;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">SEPTEMBER 2026 · 还有 4 个月</div>
+        <h3 style="margin:0 0 14px 0;font-size:18px;color:#fff">三个人的意大利</h3>
+        <p style="font-size:13px;color:#aaa;line-height:1.6;margin:0 0 24px 0">点地图上的城市看那里的故事。已定：<b style="color:#c9a961">罗马进 · 米兰出</b>。其他可加。</p>
+
+        <div class="label" style="color:#888;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">已确认的城市</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px">
+          <div style="background:#1f2933;padding:10px 12px;border-radius:6px;border-left:3px solid #b8543d;font-size:13px"><b>罗马 · 梵蒂冈</b><span style="color:#888;float:right">进</span></div>
+          <div style="background:#1f2933;padding:10px 12px;border-radius:6px;border-left:3px solid #c9a961;font-size:13px"><b>米兰</b><span style="color:#888;float:right">出</span></div>
+        </div>
+
+        <div class="label" style="color:#888;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">候选 · 点开了解</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:13px;color:#bbb;padding:7px 10px;background:#1a1f25;border-radius:5px">佛罗伦萨 <span style="color:#666;font-size:11px;float:right">文艺复兴心脏</span></div>
+          <div style="font-size:13px;color:#bbb;padding:7px 10px;background:#1a1f25;border-radius:5px">威尼斯 <span style="color:#666;font-size:11px;float:right">海上共和国</span></div>
+          <div style="font-size:13px;color:#999;padding:7px 10px;background:#1a1f25;border-radius:5px">拉文纳 <span style="color:#666;font-size:11px;float:right">拜占庭马赛克</span></div>
+          <div style="font-size:13px;color:#999;padding:7px 10px;background:#1a1f25;border-radius:5px">五渔村 <span style="color:#666;font-size:11px;float:right">利古里亚海岸</span></div>
+          <div style="font-size:13px;color:#999;padding:7px 10px;background:#1a1f25;border-radius:5px">庞贝 · 那不勒斯 <span style="color:#666;font-size:11px;float:right">古罗马灰烬</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:20px">看看这个布局对不对。注意四件事：(1) 地图是绝对主角；(2) 城市钉点的颜色直接告诉你"这里最该看的时代"；(3) 罗马→米兰的虚线动线；(4) 右侧面板把"已定 / 候选"分层。</p>

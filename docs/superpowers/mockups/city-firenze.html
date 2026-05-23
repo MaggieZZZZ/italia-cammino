@@ -1,0 +1,134 @@
+<h2>城市页 · /city/firenze（桌面）</h2>
+<p class="subtitle">点首页地图上"佛罗伦萨"之后跳到这里。每座城市的迷你时代轴权重不同 —— 这页就是核心证据。</p>
+
+<div class="mockup">
+  <div class="mockup-header">/city/firenze · 桌面</div>
+  <div class="mockup-body" style="padding:0;background:#0f1419">
+
+    <!-- Mini top nav (returned) -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid #2a2a2a;background:#1a1a1a;font-size:13px;color:#aaa">
+      <div><span style="color:#777">←</span> <span>地图</span> <span style="color:#555">/</span> <span style="color:#fff">佛罗伦萨</span></div>
+      <div style="display:flex;gap:18px"><span>地图</span><span style="color:#fff;border-bottom:2px solid #c9a961;padding-bottom:3px">城市</span><span>时代轴</span><span>主题</span></div>
+    </div>
+
+    <!-- HERO -->
+    <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:0;min-height:280px">
+      <!-- Hero image placeholder -->
+      <div style="background:linear-gradient(135deg,#3a2a1a 0%,#5a3520 60%,#8a5a3a 100%);position:relative;display:flex;align-items:flex-end;padding:24px">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 80%,rgba(201,169,97,.15),transparent 60%)"></div>
+        <div style="position:relative;color:#fff">
+          <div style="font-size:11px;letter-spacing:2px;color:#c9a961;text-transform:uppercase">FIRENZE</div>
+          <div style="font-size:32px;font-weight:600;margin-top:4px">佛罗伦萨</div>
+          <div style="font-size:12px;color:#ddd;opacity:.8;margin-top:6px">[ Duomo 大圆顶 hero 图占位 ]</div>
+        </div>
+      </div>
+      <!-- City persona text (200 字) -->
+      <div style="padding:30px 32px;color:#ddd">
+        <div class="label" style="color:#888;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">这座城市的人格</div>
+        <p style="font-size:14px;line-height:1.75;color:#ccc;margin:0">
+          14 世纪到 16 世纪，佛罗伦萨是一座靠羊毛和银行业暴富的城市，把暴发户的钱悉数砸进了画、雕塑和圆顶上 ——
+          于是有了文艺复兴。美第奇家族是这场实验的赞助人也是导演。
+          走在这座城市里，你会反复撞见同一批人的名字：但丁、布鲁内莱斯基、米开朗琪罗、达·芬奇、马基雅维利。
+          它的中世纪很短促、当代很安静，只有文艺复兴是真正属于它的时刻。
+        </p>
+        <div style="margin-top:18px;font-size:11px;color:#666">建议停留 3 天 · 与罗马、威尼斯顺路</div>
+      </div>
+    </div>
+
+    <!-- MINI TIMELINE (this city's eras, weighted) -->
+    <div style="padding:30px 32px;border-top:1px solid #2a2a2a">
+      <div class="label" style="color:#888;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">佛罗伦萨的时代轴 · 格子大小 = 这里这段时代的分量</div>
+      <div style="display:grid;grid-template-columns:.5fr .8fr 3fr 1.2fr .6fr .5fr .8fr;gap:6px;height:74px">
+        <!-- Each cell: era. Lit ones have color, dim ones are gray -->
+        <div style="background:#1a1f25;border-radius:6px;padding:8px 10px;color:#555;font-size:11px">
+          <div>古罗马</div>
+          <div style="font-size:9px;margin-top:3px;opacity:.6">几乎无</div>
+        </div>
+        <div style="background:#1f2933;border-left:3px solid #3d8a8a;border-radius:6px;padding:8px 10px;color:#aaa;font-size:11px">
+          <div>中世纪</div>
+          <div style="font-size:9px;margin-top:3px;opacity:.7">银行起家</div>
+        </div>
+        <div style="background:#2a2418;border-left:3px solid #c9a961;border-radius:6px;padding:8px 10px;color:#fff;font-size:12px;position:relative;box-shadow:0 0 0 1px rgba(201,169,97,.3)">
+          <div style="font-weight:600">文艺复兴 ★</div>
+          <div style="font-size:10px;margin-top:3px;color:#c9a961;opacity:.9">8 个地点 · 主轴</div>
+          <div style="position:absolute;top:8px;right:10px;font-size:18px;color:#c9a961;opacity:.4">▼</div>
+        </div>
+        <div style="background:#1f1d28;border-left:3px solid #7a5cc4;border-radius:6px;padding:8px 10px;color:#aaa;font-size:11px">
+          <div>巴洛克</div>
+          <div style="font-size:9px;margin-top:3px;opacity:.7">2 个地点</div>
+        </div>
+        <div style="background:#1a1f25;border-radius:6px;padding:8px 10px;color:#555;font-size:11px">
+          <div>统一</div>
+        </div>
+        <div style="background:#1a1f25;border-radius:6px;padding:8px 10px;color:#555;font-size:11px">
+          <div>法西斯</div>
+        </div>
+        <div style="background:#1f2933;border-left:3px solid #888;border-radius:6px;padding:8px 10px;color:#aaa;font-size:11px">
+          <div>当代</div>
+          <div style="font-size:9px;margin-top:3px;opacity:.7">1 个延伸</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPANDED ERA: 文艺复兴 -->
+    <div style="background:#15191e;padding:24px 32px 36px;border-top:1px solid #2a2a2a">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <span style="color:#c9a961;font-size:11px;letter-spacing:1.5px;text-transform:uppercase">展开 · 文艺复兴在佛罗伦萨</span>
+          <h3 style="margin:6px 0 0 0;color:#fff;font-size:20px">8 个地点 + 3 个核心人物 + 5 个延伸资源</h3>
+        </div>
+        <span style="font-size:11px;color:#666">点其他格子切换</span>
+      </div>
+
+      <!-- Two columns: places left, resources right -->
+      <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:30px">
+
+        <!-- Places list -->
+        <div>
+          <div class="label" style="color:#888;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">地点</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:#1a1f25;border-radius:8px;padding:14px 16px;border-left:3px solid #c9a961">
+              <div style="display:flex;justify-content:space-between"><b style="color:#fff;font-size:14px">圣母百花大教堂 · Duomo</b><span style="color:#666;font-size:11px">布鲁内莱斯基</span></div>
+              <div style="color:#999;font-size:12px;margin-top:6px;line-height:1.55">没人知道怎么盖那座 42 米跨度的圆顶 —— 直到一个钟表匠学徒来投标…</div>
+            </div>
+            <div style="background:#1a1f25;border-radius:8px;padding:14px 16px;border-left:3px solid #c9a961">
+              <div style="display:flex;justify-content:space-between"><b style="color:#fff;font-size:14px">乌菲兹美术馆 · Uffizi</b><span style="color:#666;font-size:11px">美第奇藏品</span></div>
+              <div style="color:#999;font-size:12px;margin-top:6px;line-height:1.55">原是美第奇家的办公楼 —— "uffizi" 就是 "offices"…</div>
+            </div>
+            <div style="background:#1a1f25;border-radius:8px;padding:14px 16px;border-left:3px solid #c9a961">
+              <div style="display:flex;justify-content:space-between"><b style="color:#fff;font-size:14px">学院美术馆 · Accademia</b><span style="color:#666;font-size:11px">大卫像</span></div>
+              <div style="color:#999;font-size:12px;margin-top:6px;line-height:1.55">米开朗琪罗 26 岁雕的，本来要竖在 Duomo 上…</div>
+            </div>
+            <div style="background:#1a1f25;border-radius:8px;padding:11px 16px;color:#777;font-size:13px">+ 老桥 · Palazzo Vecchio · Brancacci 礼拜堂 · San Lorenzo · Pitti 宫</div>
+          </div>
+        </div>
+
+        <!-- Topics + Resources sidebar -->
+        <div>
+          <div class="label" style="color:#888;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">这里的关键人物</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px">
+            <span style="background:#2a2418;color:#c9a961;padding:4px 10px;border-radius:12px;font-size:11px">美第奇家族</span>
+            <span style="background:#2a2418;color:#c9a961;padding:4px 10px;border-radius:12px;font-size:11px">米开朗琪罗</span>
+            <span style="background:#2a2418;color:#c9a961;padding:4px 10px;border-radius:12px;font-size:11px">布鲁内莱斯基</span>
+          </div>
+
+          <div class="label" style="color:#888;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">行前延伸 · 5 个最值得的</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+            <div style="color:#ccc"><span style="color:#666;font-size:10px;text-transform:uppercase">书</span> · <b>Brunelleschi's Dome</b> <span style="color:#888">— Ross King</span></div>
+            <div style="color:#ccc"><span style="color:#666;font-size:10px;text-transform:uppercase">书</span> · <b>The House of Medici</b> <span style="color:#888">— Hibbert</span></div>
+            <div style="color:#ccc"><span style="color:#666;font-size:10px;text-transform:uppercase">剧</span> · <b>Medici</b> <span style="color:#888">— Netflix</span></div>
+            <div style="color:#ccc"><span style="color:#666;font-size:10px;text-transform:uppercase">视频</span> · <b>Smarthistory: Florence</b> <span style="color:#888">— 系列短片</span></div>
+            <div style="color:#ccc"><span style="color:#666;font-size:10px;text-transform:uppercase">书</span> · <b>艺术的故事</b> <span style="color:#888">— Gombrich 第 12-15 章</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:20px">关键设计点：
+(1) 迷你时代轴的<b>格子宽度不均等</b>—— 文艺复兴格大、占主屏 1/3，灰格子是"这里几乎没有"；
+(2) 点格子才展开下方的"地点 + 人物 + 资源"，<b>一次只看一个时代</b>，避免信息过载；
+(3) 城市人格短文紧贴 hero，进页 5 秒能读完；
+(4) 地点条目带"故事钩子"一句话，逼着你点开。</p>
