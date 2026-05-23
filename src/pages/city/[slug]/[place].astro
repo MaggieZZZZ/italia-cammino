@@ -1,0 +1,117 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const places = await getCollection("places");
+  return places.map(p => ({
+    params: { slug: p.data.city, place: p.data.slug },
+    props: { place: p },
+  }));
+}
+
+const { place } = Astro.props;
+const { Content: NarrativeContent } = await render(place);
+
+const cities = await getCollection("cities");
+const city = cities.find(c => c.data.slug === place.data.city);
+
+const allResources = await getCollection("resources");
+const validResources = place.data.resources
+  .map(id => allResources.find(r => r.data.id === id))
+  .filter(Boolean);
+---
+
+<Layout title={`${place.data.name_zh} · ${city?.data.name_zh ?? ""}`}>
+  <nav class="breadcrumb">
+    <a href="/">地图</a> <span>/</span>
+    <a href={`/city/${place.data.city}`}>{city?.data.name_zh}</a>
+    <span>/</span>
+    <b>{place.data.name_zh}</b>
+  </nav>
+
+  <div class="place-body">
+    <article class="story">
+      <div class="era-tag">{place.data.era} · {city?.data.name_zh}</div>
+      <h1>{place.data.name_zh}</h1>
+      <div class="name-it">{place.data.name_it}{place.data.nickname ? ` · "${place.data.nickname}"` : ""}</div>
+
+      <blockquote class="hook">{place.data.hook}</blockquote>
+
+      <div class="prose"><NarrativeContent /></div>
+
+      {(place.data.related_topics.length > 0) && (
+        <div class="related">
+          <div class="label">关联</div>
+          <div class="related-chips">
+            {place.data.related_topics.map(t => <a href={`/topic/${t}`} class="chip">主题 · {t}</a>)}
+          </div>
+        </div>
+      )}
+    </article>
+
+    <aside class="context">
+      {validResources.length > 0 && (
+        <>
+          <div class="label">行前延伸</div>
+          <div class="resources">
+            {validResources.map(r => (
+              <div class="resource">
+                <div class="resource-head">
+                  <span class="rtype">{r!.data.type}</span>
+                  <b>{r!.data.title_zh}</b>
+                </div>
+                <div class="rhook">{r!.data.hook_zh}</div>
+                {r!.data.url && <a href={r!.data.url} target="_blank" rel="noopener" class="rlink">查看 →</a>}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {place.data.is_museum && (
+        <div class="visit">
+          <div class="label">如何参观</div>
+          {place.data.booking_required && <p class="visit-item">需要预约</p>}
+          {place.data.booking_window && <p class="visit-item">预订时机：{place.data.booking_window}</p>}
+          {place.data.ticket_price && <p class="visit-item">票价：{place.data.ticket_price}</p>}
+          {place.data.opening_hours && <p class="visit-item">开放：{place.data.opening_hours}</p>}
+          {place.data.must_see_checklist.length > 0 && (
+            <ul class="checklist">
+              {place.data.must_see_checklist.map(item => <li>{item}</li>)}
+            </ul>
+          )}
+          {place.data.booking_url && (
+            <a href={place.data.booking_url} target="_blank" rel="noopener" class="book-btn">官方预订 →</a>
+          )}
+        </div>
+      )}
+    </aside>
+  </div>
+</Layout>
+
+<style>
+  .breadcrumb { padding: 12px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; font-size: 13px; color: var(--text-muted); display: flex; gap: 8px; align-items: center; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb b { color: var(--text); }
+  .place-body { display: grid; grid-template-columns: 1.5fr 1fr; min-height: 640px; }
+  .story { padding: 32px 40px; max-width: 760px; }
+  .era-tag { background: color-mix(in srgb, var(--era-renaissance) 15%, #15191e); color: var(--era-renaissance); padding: 3px 9px; border-radius: 11px; font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; }
+  .story h1 { font-family: var(--font-serif-zh); font-size: 30px; margin: 8px 0 4px; color: var(--text); }
+  .name-it { color: var(--text-muted); font-style: italic; margin-bottom: 28px; }
+  .hook { border-left: 3px solid var(--era-renaissance); padding: 10px 18px; background: color-mix(in srgb, var(--era-renaissance) 5%, transparent); margin: 0 0 24px; font-style: italic; color: var(--text-secondary); }
+  .label { color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin: 24px 0 12px; }
+  .related-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: var(--bg-card-elevated); color: var(--text-secondary); padding: 6px 12px; border-radius: 14px; font-size: 12px; }
+  .context { background: var(--bg-card); border-left: 1px solid var(--border); padding: 32px 28px; }
+  .resource { background: #1a1f25; padding: 12px 14px; border-radius: 7px; margin-bottom: 10px; }
+  .resource-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .rtype { background: var(--bg-card-elevated); color: var(--text-muted); font-size: 9px; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
+  .rhook { color: #999; font-size: 11.5px; line-height: 1.5; }
+  .rlink { font-size: 11px; color: var(--era-renaissance); margin-top: 6px; display: inline-block; }
+  .visit .label { margin-top: 0; }
+  .visit-item { color: var(--text-secondary); font-size: 13px; margin: 4px 0; }
+  .checklist { color: var(--text-secondary); font-size: 13px; padding-left: 18px; margin: 8px 0; }
+  .book-btn { display: inline-block; margin-top: 10px; padding: 8px 14px; background: var(--era-renaissance); color: #1a1a1a; border-radius: 5px; font-size: 12px; font-weight: 600; }
+  @media (max-width: 768px) { .place-body { grid-template-columns: 1fr; } }
+</style>

@@ -15,6 +15,7 @@ resources: ["brunelleschis-dome", "medici-netflix", "gombrich-story-of-art"]
 is_museum: true
 booking_required: true
 booking_window: "建议出发前 60 天预订"
+booking_url: "https://www.museumflorence.com"
 ticket_price: "€20（含圆顶攀登）"
 opening_hours: "周一至周六 10:00–17:00，周日 13:30–16:45"
 must_see_checklist:

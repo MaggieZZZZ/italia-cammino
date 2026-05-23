@@ -878,7 +878,7 @@ const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
 
 **Files:** `src/pages/city/[slug]/[place].astro`
 
-- [ ] **Step 1:** 按 mockup `place-duomo.html` 实现两列布局
+- [x] **Step 1:** 按 mockup `place-duomo.html` 实现两列布局
 
 ```astro
 ---
@@ -986,9 +986,9 @@ const validResources = resources.filter(Boolean);
 </style>
 ```
 
-- [ ] **Step 2:** dev 验证 `/city/firenze/duomo`
+- [x] **Step 2:** dev 验证 `/city/firenze/duomo`
 
-- [ ] **Step 3:** Commit
+- [x] **Step 3:** Commit
 
 ---
 
