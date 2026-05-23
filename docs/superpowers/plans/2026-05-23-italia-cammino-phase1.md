@@ -384,7 +384,7 @@ git add -A && git commit -m "feat: define content collection schemas for all 9 e
 **Files:**
 - Create: `src/lib/eraColors.ts`, `src/lib/eraColors.test.ts`
 
-- [ ] **Step 1:** 测试先行 — `eraColors.test.ts`
+- [x] **Step 1:** 测试先行 — `eraColors.test.ts`
 
 ```ts
 import { describe, it, expect } from "vitest";
@@ -407,7 +407,7 @@ describe("eraColorFaded", () => {
 });
 ```
 
-- [ ] **Step 2:** 实现
+- [x] **Step 2:** 实现
 
 ```ts
 export const ERA_COLORS = {
@@ -436,9 +436,9 @@ export function eraColorFaded(id: EraId, alpha: number): string {
 }
 ```
 
-- [ ] **Step 3:** `pnpm test` 验证全绿
+- [x] **Step 3:** `pnpm test` 验证全绿
 
-- [ ] **Step 4:** Commit
+- [x] **Step 4:** Commit
 
 ```bash
 git add -A && git commit -m "feat: eraColors lib with unit tests"
