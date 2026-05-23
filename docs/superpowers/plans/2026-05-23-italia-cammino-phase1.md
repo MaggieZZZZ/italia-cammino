@@ -71,7 +71,7 @@ italia-cammino/
 **Files:**
 - Create: `package.json`, `astro.config.mjs`, `tsconfig.json`, `public/favicon.svg`
 
-- [ ] **Step 1:** 在 `italia-cammino/` 下运行 Astro 脚手架（minimal template，TypeScript strict）
+- [x] **Step 1:** 在 `italia-cammino/` 下运行 Astro 脚手架（minimal template，TypeScript strict）
 
 ```bash
 cd /Users/maggie/Desktop/ccnew/italia-cammino
@@ -80,7 +80,7 @@ pnpm create astro@latest . --template minimal --typescript strict --no-install -
 
 预期：生成 `package.json` / `astro.config.mjs` / `tsconfig.json` / `src/pages/index.astro` 等。已有的 `.gitignore` / `docs/` 不动。
 
-- [ ] **Step 2:** 安装依赖 + 加 Leaflet + Vitest
+- [x] **Step 2:** 安装依赖 + 加 Leaflet + Vitest
 
 ```bash
 pnpm install
@@ -88,7 +88,7 @@ pnpm add leaflet
 pnpm add -D @types/leaflet vitest @vitest/ui
 ```
 
-- [ ] **Step 3:** 在 `package.json` 的 `scripts` 加 test 命令
+- [x] **Step 3:** 在 `package.json` 的 `scripts` 加 test 命令
 
 ```json
 "scripts": {
@@ -100,16 +100,16 @@ pnpm add -D @types/leaflet vitest @vitest/ui
 }
 ```
 
-- [ ] **Step 4:** 替换 favicon —— 用一个简单的紫色圆（占位，后期可换）
+- [x] **Step 4:** 替换 favicon —— 用一个简单的紫色圆（占位，后期可换）
 
 ```svg
 <!-- public/favicon.svg -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#c9a961"/></svg>
 ```
 
-- [ ] **Step 5:** `pnpm dev` 验证 `http://localhost:4321` 能打开默认页
+- [x] **Step 5:** `pnpm dev` 验证 `http://localhost:4321` 能打开默认页
 
-- [ ] **Step 6:** Commit
+- [x] **Step 6:** Commit
 
 ```bash
 git add -A && git commit -m "chore: scaffold Astro project with TypeScript + Leaflet + Vitest"
