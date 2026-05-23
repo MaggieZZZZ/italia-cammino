@@ -22,7 +22,7 @@ const cities = defineCollection({
 });
 
 const places = defineCollection({
-  loader: glob({ pattern: "*/*.md", base: "./src/content/cities" }),
+  loader: glob({ pattern: "*/[!_]*.md", base: "./src/content/cities" }),
   schema: z.object({
     slug: z.string(),
     city: z.string(),

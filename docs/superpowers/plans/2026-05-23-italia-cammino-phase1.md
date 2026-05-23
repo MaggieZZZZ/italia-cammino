@@ -510,23 +510,23 @@ export function reportIssueUrl({ repo, pageUrl, pageTitle }: ReportArgs): string
 
 **实施方式：** 每个文件按 spec § 4 的 schema 写 frontmatter + 简短 body。这一步是验证 schema + 路由 + 渲染。内容不是终稿，后续 plan 才批量产出。
 
-- [ ] **Step 1:** 写 `_meta.md`（Firenze）— 完整 frontmatter + 200 字 persona
+- [x] **Step 1:** 写 `_meta.md`（Firenze）— 完整 frontmatter + 200 字 persona
 
 完整内容见 spec § 4.1。body 用我们 brainstorm 时讨论的版本。
 
-- [ ] **Step 2:** 写 `duomo.md` — 完整 frontmatter（含 museum 字段）+ 4 段叙事
+- [x] **Step 2:** 写 `duomo.md` — 完整 frontmatter（含 museum 字段）+ 4 段叙事
 
 body 用 mockup `place-duomo.html` 里那 4 段。
 
-- [ ] **Step 3:** 餐厅 2 篇 / 民宿 1 篇 / 交通 1 篇 / Trivia 2 篇 —— 全部用 mockup 里的现成内容
+- [x] **Step 3:** 餐厅 2 篇 / 民宿 1 篇 / 交通 1 篇 / Trivia 2 篇 —— 全部用 mockup 里的现成内容
 
-- [ ] **Step 4:** Renaissance era + 至少一个其他（用 Medieval 占位）
+- [x] **Step 4:** Renaissance era + 至少一个其他（用 Medieval 占位）
 
-- [ ] **Step 5:** Medici topic + 3 个 resource 条目
+- [x] **Step 5:** Medici topic + 3 个 resource 条目
 
-- [ ] **Step 6:** `pnpm build` 验证 schema 全过
+- [x] **Step 6:** `pnpm build` 验证 schema 全过
 
-- [ ] **Step 7:** Commit
+- [x] **Step 7:** Commit
 
 ---
 
