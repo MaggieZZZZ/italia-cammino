@@ -534,7 +534,7 @@ body 用 mockup `place-duomo.html` 里那 4 段。
 
 **Files:** `src/components/ItalyMap.astro`
 
-- [ ] **Step 1:** 接收 `cities: CityEntry[]` props，渲染 mockup `home-desktop.html` 里那个 stylized SVG，钉点动态生成
+- [x] **Step 1:** 接收 `cities: CityEntry[]` props，渲染 mockup `home-desktop.html` 里那个 stylized SVG，钉点动态生成
 
 ```astro
 ---
@@ -598,7 +598,7 @@ function project(lat: number, lng: number): [number, number] {
 </style>
 ```
 
-- [ ] **Step 2:** Commit
+- [x] **Step 2:** Commit
 
 ---
 

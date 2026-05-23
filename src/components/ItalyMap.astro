@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { eraColor, type EraId } from "../lib/eraColors";
+
+interface Props {
+  cities: CollectionEntry<"cities">[];
+}
+const { cities } = Astro.props;
+
+function dominantEra(weights: Record<string, number>): EraId {
+  let max = -1; let dom: EraId = "contemporary";
+  for (const [k, v] of Object.entries(weights)) {
+    if (v > max) { max = v; dom = k as EraId; }
+  }
+  return dom;
+}
+
+function project(lat: number, lng: number): [number, number] {
+  const x = ((lng - 6.5) / (18.5 - 6.5)) * 320 + 20;
+  const y = ((47 - lat) / (47 - 36.5)) * 440 + 20;
+  return [x, y];
+}
+---
+
+<svg viewBox="0 0 360 480" class="italy-map" data-italy-map>
+  <!-- Italy outline -->
+  <path d="M120,40 L160,30 L185,55 L210,80 L195,110 L215,140 L240,160 L235,200 L250,230 L240,265 L220,300 L215,340 L195,375 L175,405 L155,430 L145,450 L130,440 L140,410 L155,375 L165,340 L155,310 L130,290 L115,260 L100,225 L95,190 L100,150 L110,110 L115,75 Z"
+        fill="#1f2933" stroke="#3a4753" stroke-width="1.5"/>
+  <ellipse cx="135" cy="470" rx="28" ry="12" fill="#1f2933" stroke="#3a4753" stroke-width="1.5"/>
+
+  <!-- Route highlight (Roma → Milano) -->
+  <path d="M155,75 Q175,180 200,265" stroke="#c9a961" stroke-width="2"
+        stroke-dasharray="5,4" fill="none" opacity=".7"/>
+
+  {cities.map((c) => {
+    const [x, y] = project(c.data.lat, c.data.lng);
+    const color = eraColor(dominantEra(c.data.era_weights));
+    const isConfirmed = c.data.status === "confirmed";
+    const r = isConfirmed ? 8 : 5;
+    return (
+      <g class="city-pin" data-slug={c.data.slug} opacity={isConfirmed ? 1 : 0.55}>
+        <a href={`/city/${c.data.slug}`}>
+          <circle cx={x} cy={y} r={r} fill={color}
+                  stroke="#fff" stroke-width={isConfirmed ? 2 : 1.5}/>
+          <text x={x + 12} y={y + 4} fill="#fff" font-size="13"
+                font-weight={isConfirmed ? 600 : 400}>{c.data.name_zh}</text>
+        </a>
+      </g>
+    );
+  })}
+</svg>
+
+<style>
+  .italy-map { width: 100%; height: 100%; max-height: 540px; }
+  .city-pin { cursor: pointer; transition: opacity 0.15s; }
+  .city-pin:hover circle { stroke-width: 3; }
+</style>
