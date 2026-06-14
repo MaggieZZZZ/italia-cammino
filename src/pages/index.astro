@@ -13,17 +13,6 @@ const candidates = cities.filter(c => c.data.status === "candidate");
 ---
 
 <Layout title="意大利 · 行前内容地图">
-  <header class="top-nav">
-    <div class="brand">意大利 · 行前</div>
-    <nav>
-      <a href="/" class="active">地图</a>
-      <a href="/timeline">时代轴</a>
-      <a href="/library">书影音</a>
-      <a href="/checklist">行前</a>
-      <a href="/about">关于</a>
-    </nav>
-  </header>
-
   <main>
     <ResizableSplit defaultLeft={65}>
       <section slot="left" class="map-area">
@@ -86,12 +75,6 @@ const candidates = cities.filter(c => c.data.status === "candidate");
 </script>
 
 <style>
-  .top-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; }
-  .brand { font-weight: 600; letter-spacing: 0.5px; }
-  .top-nav nav { display: flex; gap: 22px; font-size: 14px; }
-  .top-nav nav a { color: var(--text-muted); }
-  .top-nav nav a.active { color: var(--text); border-bottom: 2px solid var(--era-renaissance); padding-bottom: 4px; }
-
   .map-area { background: #0f1419; padding: 30px; display: flex; align-items: center; justify-content: center; }
   .side-panel { background: var(--bg-card); border-left: 1px solid var(--border); padding: 24px; color: var(--text-secondary); overflow-y: auto; }
   .label { color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin: 12px 0 8px; }

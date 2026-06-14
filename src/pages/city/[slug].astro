@@ -1,8 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import EraTimeline from "../../components/EraTimeline.astro";
+import CityPlacesMap from "../../components/CityPlacesMap.astro";
 import PracticalAccordion from "../../components/PracticalAccordion.astro";
-import ReportButton from "../../components/ReportButton.astro";
 import { getCollection, render } from "astro:content";
 import type { EraId } from "../../lib/eraColors";
 
@@ -20,6 +20,17 @@ const expandedEra = (Object.entries(city.data.era_weights)
   .sort(([,a], [,b]) => (b as number) - (a as number))[0]?.[0] ?? "renaissance") as EraId;
 
 const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
+
+const mapPlaces = allPlaces
+  .filter(p => typeof p.data.lat === "number" && typeof p.data.lng === "number")
+  .map(p => ({
+    slug: p.data.slug,
+    name_zh: p.data.name_zh,
+    lat: p.data.lat as number,
+    lng: p.data.lng as number,
+    era: p.data.era,
+    expanded: p.data.era === expandedEra,
+  }));
 ---
 
 <Layout title={`${city.data.name_zh} · 意大利`} triviaSlug={city.data.slug} triviaType="city">
@@ -30,7 +41,12 @@ const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
   </nav>
 
   <section class="hero">
-    <div class="hero-image" style={{ background: "linear-gradient(135deg,#3a2a1a 0%,#5a3520 60%,#8a5a3a 100%)" }}>
+    <div class="hero-image">
+      {mapPlaces.length > 0 ? (
+        <CityPlacesMap cityLat={city.data.lat} cityLng={city.data.lng} citySlug={city.data.slug} places={mapPlaces} />
+      ) : (
+        <div class="hero-fallback" />
+      )}
       <div class="hero-text">
         <div class="city-it">{city.data.name_it.toUpperCase()}</div>
         <h1>{city.data.name_zh}</h1>
@@ -54,7 +70,7 @@ const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
     <h3>展开 · {expandedEra} 在 {city.data.name_zh}</h3>
     <div class="places-grid">
       {placesInExpandedEra.map(p => (
-        <a class="place-card" href={`/city/${city.data.slug}/${p.data.slug}`}>
+        <a class="place-card" href={`/city/${city.data.slug}/${p.data.slug}`} data-place-card={p.data.slug}>
           <b>{p.data.name_zh}</b>
           <div class="hook">{p.data.hook}</div>
         </a>
@@ -66,16 +82,16 @@ const placesInExpandedEra = allPlaces.filter(p => p.data.era === expandedEra);
   </section>
 
   <PracticalAccordion citySlug={city.data.slug} />
-  <ReportButton pageUrl={`/city/${city.data.slug}`} pageTitle={city.data.name_zh} />
 </Layout>
 
 <style>
   .breadcrumb { padding: 12px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; font-size: 13px; color: var(--text-muted); display: flex; gap: 8px; align-items: center; }
   .breadcrumb b { color: var(--text); }
   .breadcrumb a { color: var(--text-muted); }
-  .hero { display: grid; grid-template-columns: 1.3fr 1fr; min-height: 280px; }
-  .hero-image { position: relative; display: flex; align-items: flex-end; padding: 24px; color: var(--text); }
-  .hero-text { }
+  .hero { display: grid; grid-template-columns: 1.3fr 1fr; min-height: 320px; }
+  .hero-image { position: relative; color: var(--text); overflow: hidden; }
+  .hero-fallback { width: 100%; height: 100%; min-height: 320px; background: linear-gradient(135deg,#3a2a1a 0%,#5a3520 60%,#8a5a3a 100%); }
+  .hero-text { position: absolute; left: 24px; bottom: 24px; z-index: 401; pointer-events: none; text-shadow: 0 2px 12px rgba(0,0,0,0.85); }
   .city-it { font-size: 11px; letter-spacing: 2px; color: var(--era-renaissance); }
   .hero-image h1 { font-family: var(--font-serif-zh); font-size: 32px; margin: 4px 0 0; font-weight: 600; }
   .hero-side { padding: 30px 32px; }

@@ -1,0 +1,28 @@
+---
+const path = Astro.url.pathname;
+const isActive = (p: string) => p === "/" ? path === "/" : path.startsWith(p);
+---
+
+<header class="top-nav">
+  <a href="/" class="brand">意大利 · 行前</a>
+  <nav>
+    <a href="/" class:list={[{ active: isActive("/") && !isActive("/city") && !isActive("/topic") && !isActive("/timeline") && !isActive("/library") && !isActive("/checklist") && !isActive("/about") }]}>地图</a>
+    <a href="/timeline" class:list={[{ active: isActive("/timeline") }]}>时代轴</a>
+    <a href="/library" class:list={[{ active: isActive("/library") }]}>书影音</a>
+    <a href="/checklist" class:list={[{ active: isActive("/checklist") }]}>行前</a>
+    <a href="/about" class:list={[{ active: isActive("/about") }]}>关于</a>
+  </nav>
+</header>
+
+<style>
+  .top-nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; position: sticky; top: 0; z-index: 100; }
+  .brand { font-weight: 600; letter-spacing: 0.5px; color: var(--text); }
+  .top-nav nav { display: flex; gap: 22px; font-size: 14px; }
+  .top-nav nav a { color: var(--text-muted); }
+  .top-nav nav a.active { color: var(--text); border-bottom: 2px solid var(--era-renaissance); padding-bottom: 4px; }
+  @media (max-width: 768px) {
+    .top-nav { padding: 10px 14px; }
+    .top-nav nav { gap: 14px; font-size: 13px; }
+    .brand { font-size: 13px; }
+  }
+</style>

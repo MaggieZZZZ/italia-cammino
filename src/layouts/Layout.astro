@@ -1,8 +1,20 @@
 ---
-interface Props { title: string; description?: string; triviaSlug?: string; triviaType?: "city" | "era" | "topic" | "place"; }
-const { title, description = "意大利 · 行前内容地图", triviaSlug, triviaType } = Astro.props;
+interface Props {
+  title: string;
+  description?: string;
+  triviaSlug?: string;
+  triviaType?: "city" | "era" | "topic" | "place";
+  pageTitle?: string;
+  showNav?: boolean;
+}
+const { title, description = "意大利 · 行前内容地图", triviaSlug, triviaType, pageTitle, showNav = true } = Astro.props;
 import "../styles/global.css";
 import TriviaCard from "../components/TriviaCard.astro";
+import TopNav from "../components/TopNav.astro";
+import ReportButton from "../components/ReportButton.astro";
+
+const pageUrl = Astro.url.pathname;
+const reportTitle = pageTitle ?? title.split(" · ")[0];
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -17,7 +29,9 @@ import TriviaCard from "../components/TriviaCard.astro";
     <title>{title}</title>
   </head>
   <body>
+    {showNav && <TopNav />}
     <slot />
     <TriviaCard attachedSlug={triviaSlug} attachedTo={triviaType} />
+    <ReportButton pageUrl={pageUrl} pageTitle={reportTitle} />
   </body>
 </html>

@@ -1,0 +1,119 @@
+---
+import { ERA_COLORS } from "../lib/eraColors";
+
+interface PlaceMarker {
+  slug: string;
+  name_zh: string;
+  lat: number;
+  lng: number;
+  era: string;
+  expanded: boolean;
+}
+interface Props {
+  cityLat: number;
+  cityLng: number;
+  citySlug: string;
+  places: PlaceMarker[];
+}
+const { cityLat, cityLng, citySlug, places } = Astro.props;
+const eraColors = ERA_COLORS;
+---
+
+<div id="city-places-map" class="city-places-map"></div>
+
+<script define:vars={{ cityLat, cityLng, citySlug, places, eraColors }}>
+  import("https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js").then(L => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(link);
+
+    const map = L.default.map("city-places-map", {
+      zoomControl: true,
+      attributionControl: false,
+      scrollWheelZoom: false,
+    });
+
+    L.default.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      subdomains: "abcd",
+      maxZoom: 19,
+    }).addTo(map);
+
+    const markersBySlug = {};
+    const latLngs = [];
+
+    places.forEach(p => {
+      if (typeof p.lat !== "number" || typeof p.lng !== "number") return;
+      const color = eraColors[p.era] ?? "#888";
+      const marker = L.default.circleMarker([p.lat, p.lng], {
+        radius: p.expanded ? 9 : 6,
+        fillColor: color,
+        color: "#fff",
+        weight: p.expanded ? 2 : 1,
+        fillOpacity: p.expanded ? 1 : 0.7,
+      })
+        .bindTooltip(p.name_zh, { direction: "right", className: "map-label" })
+        .addTo(map);
+
+      marker.on("click", () => {
+        window.location.href = `/city/${citySlug}/${p.slug}`;
+      });
+
+      markersBySlug[p.slug] = marker;
+      latLngs.push([p.lat, p.lng]);
+    });
+
+    if (latLngs.length > 0) {
+      map.fitBounds(latLngs, { padding: [30, 30], maxZoom: 15 });
+    } else {
+      map.setView([cityLat, cityLng], 13);
+    }
+
+    document.querySelectorAll("[data-place-card]").forEach(el => {
+      const slug = el.getAttribute("data-place-card");
+      const marker = markersBySlug[slug];
+      if (!marker) return;
+      el.addEventListener("mouseenter", () => {
+        marker.setStyle({ radius: 12, fillOpacity: 1, weight: 3 });
+        marker.openTooltip();
+      });
+      el.addEventListener("mouseleave", () => {
+        const p = places.find(x => x.slug === slug);
+        marker.setStyle({
+          radius: p?.expanded ? 9 : 6,
+          fillOpacity: p?.expanded ? 1 : 0.7,
+          weight: p?.expanded ? 2 : 1,
+        });
+        marker.closeTooltip();
+      });
+    });
+  });
+</script>
+
+<style>
+  .city-places-map {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    border-radius: 0;
+    background: #0f1419;
+  }
+</style>
+
+<style is:global>
+  .city-places-map .map-label {
+    background: rgba(20,20,20,0.85);
+    border: 1px solid rgba(201,169,97,0.4);
+    color: #f0e3c4;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 7px;
+    box-shadow: none;
+  }
+  .city-places-map .leaflet-control-zoom { border: none; }
+  .city-places-map .leaflet-control-zoom a {
+    background: rgba(20,20,20,0.85);
+    color: #c9a961;
+    border: 1px solid rgba(201,169,97,0.3);
+  }
+</style>
