@@ -4,8 +4,8 @@ import PrepNav from "../components/PrepNav.astro";
 
 // 按 2026-07-15 状态倒推，出发 2026-09-26
 const bookings = [
-  { when: "🔴 立即", urgency: "critical", item: "预约意大利申根签递交", url: "https://visa.vfsglobal.com/chn/zh/ita/book-an-appointment", note: "深圳 VFS；三位申请人各自一套材料。先锁预约，再准备打印件" },
-  { when: "🔴 立即核对", urgency: "critical", item: "Cenacolo 最后的晚餐", url: "https://cenacolovinciano.org", note: "9–12 月票已于 6/23 12:00 CET 开售；如未订到，持续看官方退票与增补场次" },
+  { when: "✅ 已约 · 2026-07-22", urgency: "done", item: "意大利申根签递交", url: "/visa", note: "深圳 VFS；带齐三套独立材料和预约确认单" },
+  { when: "✅ 已约 · 2026-10-03 11:30", urgency: "done", item: "Cenacolo 最后的晚餐", url: "https://cenacolovinciano.org", note: "米兰固定锚点；建议 11:00 前抵达取票 / 核验，当天 Firenze → Milano → Venezia" },
   { when: "立即", urgency: "now", item: "护照、领区与签证材料", url: "/visa", note: "护照、户口/居住证明、近 3 月流水、在职证明、营业执照先准备" },
   { when: "立即", urgency: "now", item: "全程住宿订定", url: "", note: "4 座住宿城市共 10 晚：Roma 4 / Firenze 3 / Venezia 2 / Milano 1" },
   { when: "立即", urgency: "now", item: "申根旅行医疗保险", url: "", note: "签证材料：覆盖申根及往返日期，医疗不少于 €30,000，含紧急医疗遣返" },
@@ -13,13 +13,13 @@ const bookings = [
   { when: "2026-07-27 前后", urgency: "soon", item: "梵蒂冈博物馆", url: "https://www.museivaticani.va", note: "目标 9/28 早场；只从官方票务入口购买" },
   { when: "2026-08-02 前后", urgency: "soon", item: "Accademia Firenze (David)", url: "https://www.galleriaaccademiafirenze.it/en/tickets/", note: "目标 10/1 下午；开放后立即选时段" },
   { when: "2026-08-27 (30 天前)", urgency: "schedule", item: "Colosseo + Foro + Palatino", url: "https://parcocolosseo.it", note: "联票 €18，9/27 早 09:00" },
-  { when: "2026-08-27 (30 天前)", urgency: "schedule", item: "Duomo Milano (含屋顶)", url: "https://www.duomomilano.it", note: "10/5 下午" },
+  { when: "2026-08-27 (30 天前)", urgency: "schedule", item: "Duomo Milano (含屋顶)", url: "https://www.duomomilano.it", note: "10/5 下午，目标 15:30 后" },
   { when: "2026-09-01 (25 天前)", urgency: "schedule", item: "Duomo Firenze Cupola", url: "https://duomo.firenze.it", note: "10/1 早 08:30 登顶" },
   { when: "2026-09-05 (3 周前)", urgency: "schedule", item: "庞贝古城", url: "https://pompeiisites.org", note: "9/29 早场" },
-  { when: "7–8 月", urgency: "soon", item: "高铁全程", url: "https://www.trenitalia.com/en.html", note: "班次出现后即可比价：Napoli 往返 + Roma–Firenze–Venezia–Milano" },
-  { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Basilica San Marco", url: "https://www.basilicasanmarco.it", note: "10/3 下午" },
-  { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Palazzo Ducale Venezia", url: "https://palazzoducale.visitmuve.it", note: "10/3 下午联票 €30" },
-  { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Peggy Guggenheim", url: "https://www.guggenheim-venice.it", note: "10/4 下午" },
+  { when: "7–8 月", urgency: "soon", item: "高铁全程", url: "https://www.trenitalia.com/en.html", note: "Napoli 往返 + Roma–Firenze；10/3 Firenze–Milano–Venezia；10/5 Venezia–Milano" },
+  { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Basilica San Marco", url: "https://www.basilicasanmarco.it", note: "改到 10/4 早场" },
+  { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Palazzo Ducale Venezia", url: "https://palazzoducale.visitmuve.it", note: "10/4 上午，接在 San Marco 后" },
+  { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Peggy Guggenheim", url: "https://www.guggenheim-venice.it", note: "10/5 上午可选，之后乘中午高铁去 Milano" },
   { when: "2026-09-12 (2 周前)", urgency: "schedule", item: "餐厅订位", url: "", note: "Roscioli / Da Enzo / Antiche Carampane / Osteria alle Testiere / Trattoria Sostanza" },
   { when: "2026-09-25 (出发前一天)", urgency: "final", item: "所有票电子版核对 + 打印", url: "", note: "存手机 + 云端 + 纸质各一份" },
 ];
@@ -65,7 +65,8 @@ const bookings = [
     <section>
       <h2>📋 现在就做</h2>
       <ul class="task-list">
-        <li><b>申根签证</b>：立即预约深圳 VFS，并开始准备三套独立材料；<a href="/visa">打开签证专页 →</a></li>
+        <li><b>申根签证</b>：已约 7 月 22 日深圳 VFS；现在逐项备齐三套独立材料；<a href="/visa">打开签证专页 →</a></li>
+        <li><b>最后的晚餐</b>：已约 10 月 3 日 11:30；当天路线固定为 Firenze → Milano → Venezia</li>
         <li><b>护照</b>：至少 2 页空白页；官方最低离开申根后有效 3 个月，建议按 6 个月留余量</li>
         <li><b>旅行保险</b>：签证要求医疗不少于 €30,000，覆盖申根区、完整往返日期、紧急医疗与遣返</li>
         <li><b>机酒一致</b>：四家住宿覆盖 10 晚，三位姓名与护照拼写一致</li>
@@ -217,6 +218,7 @@ const bookings = [
   .row { display: grid; grid-template-columns: 240px 1fr 1.5fr; gap: 12px; padding: 10px 14px; background: var(--bg-card); border-radius: 6px; font-size: 13px; }
   .row.header-row { background: transparent; padding: 4px 14px; color: var(--text-muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
   .row.critical { background: color-mix(in srgb, var(--era-ancient-rome) 18%, var(--bg-card)); border-left: 3px solid var(--era-ancient-rome); }
+  .row.done { background: color-mix(in srgb, var(--era-renaissance) 10%, var(--bg-card)); border-left: 3px solid var(--era-renaissance); }
   .row.now { border-left: 3px solid var(--era-renaissance); }
   .row.soon { border-left: 3px solid var(--era-medieval); }
   .row.schedule { border-left: 3px solid var(--border-strong); }

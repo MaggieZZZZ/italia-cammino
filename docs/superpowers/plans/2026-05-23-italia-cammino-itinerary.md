@@ -15,8 +15,8 @@ Maggie 和 2 个朋友首次意大利。**9/26 周六 08:05 落地罗马**（香
 ## 路线建议：**4-3-2-1 分配**
 
 ```
-Roma 4 晚  →  Firenze 3 晚  →  Venezia 2 晚  →  Milano 1 晚
-   (含 Pompei 一日游)
+Roma 4 晚 → Firenze 3 晚 → [10/3 Milano · Cenacolo] → Venezia 2 晚 → Milano 1 晚
+   (含 Pompei 一日游；10/3 米兰只停留，不住宿)
 ```
 
 | # | 日期 | 城市 | 主要安排 | 晚饭区域 |
@@ -28,16 +28,16 @@ Roma 4 晚  →  Firenze 3 晚  →  Venezia 2 晚  →  Milano 1 晚
 | 5 | 9/30 Wed | → Firenze N1 | 上午搬家 + 下午 Uffizi | Mercato 周边 |
 | 6 | 10/1 Thu | Firenze N2 | Duomo 登顶 + Accademia (David) | Oltrarno |
 | 7 | 10/2 Fri | Firenze N3 | Pitti 宫 + Piazzale Michelangelo 日落 | 老桥附近 |
-| 8 | 10/3 Sat | → Venezia N1 | 上午搬家 + 圣马可 + Palazzo Ducale | Rialto cicchetti |
-| 9 | 10/4 Sun | Venezia N2 | **Murano + Burano 一日游** | Castello |
-| 10 | 10/5 Mon | → Milano N1 | 中午到 + **Cenacolo** + Duomo + Galleria | Navigli aperitivo |
+| 8 | 10/3 Sat | Firenze → Milano → Venezia N1 | **11:30 Cenacolo 已预约** + 下午去威尼斯 | Rialto cicchetti |
+| 9 | 10/4 Sun | Venezia N2 | 圣马可 + 总督府 + Murano / Burano | Castello |
+| 10 | 10/5 Mon | → Milano N1 | Peggy 可选 + Duomo + Galleria | Navigli aperitivo |
 | - | 10/6 Tue | → Malpensa | 09:00 出门，12:45 飞 | - |
 
 **为什么这样分**：
 - Roma 4 晚：城市最大、要看的最多（古罗马 + 梵蒂冈各占 1 天），加 Pompei 一日游和落地缓冲。
 - Firenze 3 晚：城市紧凑可步行，但博物馆密集需要消化。Tuscany 一日游可选。
 - Venezia 2 晚：主岛 + 离岛一天就够，第三晚反而审美疲劳。
-- Milano 1 晚：主要是为了 Cenacolo（最后的晚餐）+ 离港机场。米兰对游客没那么有吸引力。
+- Milano 1 晚：10/3 先借道看 Cenacolo，10/5 再回来住一晚，为 Duomo 和次日离港留余量。
 
 **为什么含 Pompei**：从罗马来回 4-5 小时车程，但庞贝是一辈子去一次的景点，且 italia-cammino 网站里有完整内容。如果不想要可以省下来给 Firenze 多 1 晚 / Milano 多 1 晚。
 
@@ -130,43 +130,35 @@ Roma 4 晚  →  Firenze 3 晚  →  Venezia 2 晚  →  Milano 1 晚
 - **晚饭**：**Buca dell'Orafo**（老桥边小餐馆，1840 年的酒窖改的）或 **Il Latini**（土斯卡纳传统）
 - **替代**：如果想去 Siena，今天可以坐大巴去（1h15，€9 单程），但来回鸡飞狗跳，建议第一次来不去
 
-### Day 8 · 10/3 Sat · 搬家到 Venezia
+### Day 8 · 10/3 Sat · Firenze → Milano → Venezia
 
-- **09:00** 最后早咖啡 at **Caffè Gilli**（1733 年的老咖啡馆）
-- **10:00** Frecciarossa 佛罗伦萨 → 威尼斯 Santa Lucia（2h05）
-- **12:30** 威尼斯！下火车站台直接看到大运河
-- **13:00 Vaporetto 1 号** 沿大运河到 San Marco（40 分钟移动剧场，**必坐前排靠窗**）
-- 强烈建议：买 24-72 小时 vaporetto pass（€25-40），单次 €9.50 划不来
-- **14:00** 放行李，住 Dorsoduro 区最美最安静
-- **15:00 Basilica San Marco**（**提前预约** €3，金色马赛克在 11-13 点光线最好但人多）
-- **16:30 Palazzo Ducale 总督府**（联票 €30 含 Museo Correr，Tintoretto《天堂》是世界最大油画）
-- **18:00 Cicchetti 之旅**：Rialto 市场附近一条龙
+- **早班高铁** 佛罗伦萨 → 米兰 Centrale，选择最迟 10:15 前抵达的班次
+- 米兰中央站寄存行李，前往 Santa Maria delle Grazie；**11:00 前抵达取票 / 核验**
+- **11:30 Cenacolo /《最后的晚餐》**（已预约，固定锚点）
+- 午饭后回中央站取行李，乘下午高铁前往 Venezia Santa Lucia
+- 抵达后乘 **Vaporetto 1 号** 看大运河，入住 Dorsoduro
+- **傍晚 Cicchetti 之旅**：Rialto 市场附近一条龙
   - **All'Arco**（Tucci 推荐第一站，站立 5 分钟一杯酒一块小食）
   - **Cantina Do Mori**（1462 年的酒吧，Casanova 来过）
   - 每家 €1.5-3 一个小食，€1.5 一杯 ombra（小杯本地酒）→ €15 吃饱
 - **替代正餐**：**Antiche Carampane**（**提前 2 周订**，San Polo 区精致海鲜）
 
-### Day 9 · 10/4 Sun · Murano + Burano 一日游
+### Day 9 · 10/4 Sun · 圣马可 + 潟湖
 
-- **09:00** Fondamenta Nove 码头 vaporetto **12 号** 出发
-- **09:25** 到 **Murano**（玻璃岛）→ 找一家玻璃工坊看吹玻璃示范（多数免费，但工坊会希望你买东西；真品有 Vetro Murano Artistico 标签）
-- **11:00** Vaporetto 12 号继续到 **Burano**（彩色岛，40 分钟）
-- **12:00** 在岛上散步拍彩色房子
-- **13:00 午饭**：**Trattoria al Gatto Nero**（Burano 招牌店，risotto al gò 潟湖小鱼烩饭）
-- **14:30** Vaporetto 回威尼斯
-- **16:00 Peggy Guggenheim Collection**（大运河边 18 世纪宫殿里看 20 世纪现代艺术，€16）
-- **17:30 日落**：走到 **Punta della Dogana**（大运河南端突角，看 Salute 教堂日落）
-- **19:30 晚饭**：**Osteria alle Testiere**（Castello 区 12 桌小店，每天根据 Rialto 市场来菜）
+- **08:30 Basilica San Marco** 早场
+- **10:00 Palazzo Ducale 总督府**（联票含 Museo Correr）
+- **12:30** 主岛简单午饭后，到 Fondamenta Nove 码头乘 vaporetto **12 号**
+- **14:00** 到 **Murano**（玻璃岛），看吹玻璃示范
+- **15:30** 继续前往 **Burano**，散步拍彩色房子
+- **18:30 前后** 返回威尼斯主岛
+- **20:00 晚饭**：**Osteria alle Testiere**（Castello 区 12 桌小店，每天根据 Rialto 市场来菜）
 - **21:30** Gelato at **Suso**（Rialto 北边，最好的开心果 gelato）
 
 ### Day 10 · 10/5 Mon · 搬家到 Milano
 
-- **09:00** 最后一次走 San Marco 广场（早晨人少）+ Caffè Florian（1720 年开业，超贵 €15 一杯 espresso 但氛围值）
-- **10:30** Vaporetto 回火车站
-- **11:30** Frecciarossa 威尼斯 → 米兰 Centrale（2h25）
-- **14:00** 米兰，放行李
-- **14:30 Cenacolo / 最后的晚餐**（**！6/24 中午 CET 蹲点抢，按季度开放 ！** €15，15 分钟限时入场）
-- **15:30** 走到 **Duomo 大教堂**（屋顶平台是亮点，**提前订 roof ticket** €17，能走在 135 座尖塔之间）
+- **09:00** Peggy Guggenheim Collection（可选；如更想慢走，则留给 Dorsoduro）
+- **中午** Frecciarossa 威尼斯 → 米兰 Centrale（约 2h25）
+- **15:30 后** **Duomo 大教堂**（屋顶平台是亮点，提前订 roof ticket）
 - **17:30 Galleria Vittorio Emanuele II**（19 世纪玻璃顶购物廊，在都灵公牛马赛克睾丸上转 3 圈 = 好运）
 - **18:30 La Scala 歌剧院**（如果有当季票看看，没的话外观即可）
 - **19:30 Aperitivo at Navigli**（运河区，€10-12 一杯酒 + 一大盘小食是米兰传统）
@@ -207,23 +199,23 @@ Roma 4 晚  →  Firenze 3 晚  →  Venezia 2 晚  →  Milano 1 晚
 
 ## 关键预订清单（必须现在做的）
 
-今天是 **2026-05-23**，距离 9/26 还有 **126 天**。
+当前状态更新于 **2026-07-15**。
 
-### Cenacolo（最后的晚餐）—— 按季度开放，**6/24 蹲守**
+- [x] **意大利申根签递交预约：2026-07-22 · 深圳 VFS**
+- [x] **Cenacolo /《最后的晚餐》：2026-10-03 11:30**
+
+### Cenacolo（最后的晚餐）—— 已预约
 
 ⚠️ Cenacolo **不是滚动开放**，是每 3 个月开一批：
 
 | 开放时间 | 覆盖时段 |
 |---|---|
 | 2026-03-24 中午 CET | 5/1 - 8/31 |
-| **2026-06-24（前后）中午 12:00 CET = 香港时间 18:00** | 9/1 - 11/30 ← **你需要的批次** |
+| **2026-06-23 中午 12:00 CET = 香港时间 18:00** | 9/1 - 12/31 ← **已购批次** |
 
-- [ ] **6 月底（按规律推算 6/24）中午 12:00 CET = 香港时间晚 6:00**：守电脑前抢
-  - https://cenacolovinciano.org → Tickets → 2026-10-05 下午时段
-  - 每 15 分钟限 25 人 = 一天约 800 张给全球游客，分秒级售空
-  - 6 月中旬开始每天检查官网，公告确切开放日期
-  - 备选时段：10/5 抢不到可挪 10/3（Venezia 减 1 晚改 Milano 加 1 晚）
-  - **抢不到 = 整个 Milano 一天的核心就没了** —— 但米兰大教堂屋顶 + Galleria 也还行
+- [x] **2026-10-03 11:30 已约成功**
+  - 当天路线调整为 Firenze → Milano → Venezia
+  - 建议 11:00 前到场取票 / 核验
 
 ### 60 天前订（7/27 左右开订）
 
@@ -240,8 +232,8 @@ Roma 4 晚  →  Firenze 3 晚  →  Venezia 2 晚  →  Milano 1 晚
 ### 2-4 周前订（8 月底-9 月初）
 
 - [ ] **庞贝**（9/29）→ https://pompeiisites.org
-- [ ] **Basilica San Marco + Palazzo Ducale**（10/3）→ https://www.basilicasanmarco.it / https://palazzoducale.visitmuve.it
-- [ ] **Peggy Guggenheim**（10/4）→ https://www.guggenheim-venice.it
+- [ ] **Basilica San Marco + Palazzo Ducale**（10/4 上午）→ https://www.basilicasanmarco.it / https://palazzoducale.visitmuve.it
+- [ ] **Peggy Guggenheim**（10/5 上午，可选）→ https://www.guggenheim-venice.it
 - [ ] **MANN 国家考古博物馆 Napoli**（9/29）→ 现场买票即可
 
 ### 餐厅订位（出发前 2-4 周）
@@ -252,7 +244,7 @@ Roma 4 晚  →  Firenze 3 晚  →  Venezia 2 晚  →  Milano 1 晚
 
 - 9/29: Roma → Napoli → Roma（高铁 Frecciarossa）
 - 9/30: Roma → Firenze
-- 10/3: Firenze → Venezia
+- 10/3: Firenze → Milano → Venezia（配合 11:30 Cenacolo）
 - 10/5: Venezia → Milano
 - 10/6: Milano → Malpensa Express
 
@@ -285,12 +277,7 @@ Roma 4 晚  →  Firenze 3 晚  →  Venezia 2 晚  →  Milano 1 晚
 
 ## Verification
 
-不是代码任务，没有测试。"完工"标志是：
-1. Maggie 看完这个 plan 觉得节奏合理
-2. 关键预订项目（Cenacolo / 梵蒂冈 / Uffizi）按时段开始订
-3. 出发前每个 ☑ 都打钩
-
-如果要把这个行程写成可分享的 URL（让朋友看），可以加到 italia-cammino 网站作为一个新页面 `/itinerary.astro`（Phase 3 工作）。但不是这次任务范围。
+当前行程已同步到网站 /itinerary。后续更新以固定预约为锚点，并保持网站、签证行程单和交通订单一致。
 
 ---
 

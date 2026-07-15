@@ -6,7 +6,12 @@ const route = [
   { city: "Roma", zh: "罗马", nights: 4, dates: "9/26—9/30", href: "/city/roma", note: "古罗马 · 梵蒂冈 · 庞贝一日游" },
   { city: "Firenze", zh: "佛罗伦萨", nights: 3, dates: "9/30—10/3", href: "/city/firenze", note: "文艺复兴 · 美术馆 · 左岸慢走" },
   { city: "Venezia", zh: "威尼斯", nights: 2, dates: "10/3—10/5", href: "/city/venezia", note: "圣马可 · 大运河 · 潟湖离岛" },
-  { city: "Milano", zh: "米兰", nights: 1, dates: "10/5—10/6", href: "/city/milano", note: "最后的晚餐 · 大教堂 · 离境" },
+  { city: "Milano", zh: "米兰", nights: 1, dates: "10/5—10/6", href: "/city/milano", note: "大教堂 · Galleria · 离境" },
+];
+
+const fixedAnchors = [
+  { date: "07/22", title: "深圳 VFS 递签", note: "已预约 · 三人各自一套材料" },
+  { date: "10/03 · 11:30", title: "Cenacolo · 最后的晚餐", note: "已预约 · 当天借道 Milano 前往 Venezia" },
 ];
 
 const days = [
@@ -46,18 +51,18 @@ const days = [
     food: "午餐 Gusta Pizza / 晚餐 Buca dell’Orafo；留半天不赶路。",
   },
   {
-    day: "08", date: "10/3 · 周六", city: "Firenze → Venezia", tag: "移动 · 圣马可",
-    plan: ["高铁到 Venezia S. Lucia", "Vaporetto 1 号看大运河", "Basilica San Marco", "Palazzo Ducale"],
-    food: "傍晚做 Rialto cicchetti 小食路线：All’Arco → Cantina Do Mori。",
+    day: "08", date: "10/3 · 周六", city: "Firenze → Milano → Venezia", tag: "Cenacolo · 11:30",
+    plan: ["早班高铁到 Milano", "11:00 前抵达取票 / 核验", "11:30 看《最后的晚餐》", "下午高铁到 Venezia"],
+    food: "午餐放在 Santa Maria delle Grazie 周边；威尼斯入住后走 Rialto cicchetti 小食路线。",
   },
   {
-    day: "09", date: "10/4 · 周日", city: "Venezia", tag: "潟湖",
-    plan: ["Murano 玻璃工坊", "Burano 彩色岛", "Peggy Guggenheim", "Punta della Dogana 日落"],
-    food: "Burano 午餐 Gatto Nero；威尼斯晚餐 Osteria alle Testiere。",
+    day: "09", date: "10/4 · 周日", city: "Venezia", tag: "圣马可 · 潟湖",
+    plan: ["Basilica San Marco 早场", "Palazzo Ducale", "Murano + Burano", "返回主岛看夜色"],
+    food: "Burano 午餐 Gatto Nero；若不去离岛，就改为 Dorsoduro + Peggy Guggenheim。",
   },
   {
-    day: "10", date: "10/5 · 周一", city: "Venezia → Milano", tag: "达·芬奇 · 哥特",
-    plan: ["上午高铁到 Milano", "Cenacolo（如已订到）", "Duomo 屋顶", "Galleria + Navigli"],
+    day: "10", date: "10/5 · 周一", city: "Venezia → Milano", tag: "现代艺术 · 哥特",
+    plan: ["早上 Peggy（可选）", "中午高铁到 Milano", "Duomo 屋顶", "Galleria + Navigli"],
     food: "Navigli aperitivo；晚餐 Trattoria Arlati。",
   },
   {
@@ -70,7 +75,8 @@ const days = [
 const transfers = [
   ["9/29", "Roma Termini → Napoli Centrale → Roma", "Frecciarossa 往返"],
   ["9/30", "Roma Termini → Firenze S. M. Novella", "约 1h30"],
-  ["10/3", "Firenze S. M. Novella → Venezia S. Lucia", "约 2h"],
+  ["10/3", "Firenze S. M. Novella → Milano Centrale", "选能在 10:15 前抵达的早班"],
+  ["10/3", "Milano Centrale → Venezia S. Lucia", "Cenacolo 后的下午班次"],
   ["10/5", "Venezia S. Lucia → Milano Centrale", "约 2h25"],
   ["10/6", "Milano Centrale / Cadorna → Malpensa MXP", "约 50min"],
 ];
@@ -82,13 +88,23 @@ const transfers = [
   <main class="itinerary-page">
     <header class="hero">
       <p class="eyebrow">10 NIGHTS · 3 PEOPLE · ROMA IN / MILANO OUT</p>
-      <h1>4—3—2—1，向北走</h1>
-      <p>9/26 08:05 落地罗马，10/6 12:45 从米兰回香港。四座住宿城市，加一次 Napoli / Pompei 一日往返。</p>
+      <h1>4—3—2—1，路线锁定</h1>
+      <p>9/26 08:05 落地罗马，10/6 12:45 从米兰回香港。10/3 为了 11:30 的《最后的晚餐》，从 Firenze 先到 Milano，再继续去 Venezia 住两晚。</p>
       <div class="hero-actions">
         <a href="#daily">看逐日安排 ↓</a>
         <button type="button" id="print-itinerary">打印 / 存 PDF</button>
       </div>
     </header>
+
+    <section class="fixed-anchors" aria-label="已确认的固定预约">
+      {fixedAnchors.map(anchor => (
+        <div>
+          <time>{anchor.date}</time>
+          <p><b>{anchor.title}</b><span>{anchor.note}</span></p>
+          <em>CONFIRMED</em>
+        </div>
+      ))}
+    </section>
 
     <section class="route-grid" aria-label="住宿城市路线">
       {route.map((stop, index) => (
@@ -117,7 +133,7 @@ const transfers = [
       <div>
         <span>签证一致性</span>
         <b>四城 10 晚不能漏</b>
-        <p>酒店、英文行程单、火车和申请表日期要一致；Napoli 是一日游，不单独出现住宿。</p>
+        <p>10/3 虽经过 Milano，但当晚住 Venezia；酒店、英文行程单和火车必须写清楚，Napoli 同样只是一日游。</p>
       </div>
     </section>
 
@@ -195,6 +211,13 @@ const transfers = [
   .hero-actions a, .hero-actions button { padding: 9px 14px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-secondary); font-size: 12px; }
   .hero-actions a { color: var(--text); border-color: var(--era-renaissance); }
 
+  .fixed-anchors { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 0; }
+  .fixed-anchors > div { display: grid; grid-template-columns: 80px 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; background: color-mix(in srgb, var(--era-renaissance) 9%, var(--bg-card)); border: 1px solid var(--border); border-left: 3px solid var(--era-renaissance); border-radius: 7px; }
+  .fixed-anchors time { color: var(--era-renaissance); font-size: 12px; font-weight: 600; }
+  .fixed-anchors p { margin: 0; }
+  .fixed-anchors b { display: block; font-size: 12px; }
+  .fixed-anchors span { display: block; color: var(--text-muted); font-size: 10px; margin-top: 2px; }
+  .fixed-anchors em { color: var(--text-muted); font-size: 8px; font-style: normal; letter-spacing: 1px; }
   .route-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
   .route-card { display: grid; grid-template-columns: 28px 1fr; gap: 9px; min-height: 150px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--era-renaissance); border-radius: 8px; }
   .route-card:hover { border-color: var(--era-renaissance); }
@@ -238,6 +261,7 @@ const transfers = [
   .visa-bridge > a { color: var(--era-renaissance); font-size: 12px; white-space: nowrap; }
 
   @media (max-width: 820px) {
+    .fixed-anchors { grid-template-columns: 1fr; }
     .route-grid { grid-template-columns: repeat(2, 1fr); }
     .principles { grid-template-columns: 1fr; }
     .day-main ol { grid-template-columns: repeat(2, 1fr); }
@@ -245,6 +269,8 @@ const transfers = [
   @media (max-width: 560px) {
     .itinerary-page { padding: 30px 14px 80px; }
     .route-grid { grid-template-columns: 1fr; }
+    .fixed-anchors > div { grid-template-columns: 72px 1fr; }
+    .fixed-anchors em { display: none; }
     .route-card { min-height: auto; }
     .section-head, .visa-bridge { align-items: flex-start; flex-direction: column; }
     .day-card { grid-template-columns: 62px 1fr; }
