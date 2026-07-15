@@ -1,0 +1,292 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PrepNav from "../components/PrepNav.astro";
+
+const officialLinks = [
+  { label: "VFS 意大利中国 · 个人旅游签", href: "https://visa.vfsglobal.com/one-pager/italy/china/guangzhou/chinese/" },
+  { label: "预约深圳签证中心", href: "https://visa.vfsglobal.com/chn/zh/ita/book-an-appointment" },
+  { label: "广州领区最新通知", href: "https://visa.vfsglobal.com/chn/zh/ita/news/news-for-guangzhou-jurisdiction" },
+  { label: "PIPL 同意书最新通知", href: "https://visa.vfsglobal.com/chn/zh/ita/news/consent-form-requirement" },
+];
+
+const groups = [
+  {
+    title: "01 · 预约与表格",
+    note: "先抢递签时间，再围绕预约日倒排材料。",
+    items: [
+      { id: "appointment", title: "VFS 深圳递签预约确认单", detail: "三人同行也要每人一份申请；优先预约，不依赖 walk-in。" },
+      { id: "checklist", title: "下载当天最新版个人旅游签 Checklist", detail: "打印后作为材料封面，按官方顺序装订。" },
+      { id: "application", title: "申根签证申请表原件", detail: "用英文或意大利文填写；按 VFS 要求打印在一张 A3 纸上，并在第 3、4 页本人签名。" },
+      { id: "pipl", title: "PIPL 个人信息保护同意书", detail: "VFS 自 2026-05-27 起要求提交，下载、填写并本人签名。" },
+    ],
+  },
+  {
+    title: "02 · 身份与领区",
+    note: "以下按中国大陆因私护照、深圳递交准备。",
+    items: [
+      { id: "passport", title: "护照原件", detail: "签发不超过 10 年、至少 2 页空白页；官方最低为离开申根后仍有效 3 个月，实操建议留足 6 个月。" },
+      { id: "passport-copies", title: "护照资料页复印件 × 2", detail: "旧版护照同时复印签字页；近 5 年英国、美国、申根签证页。" },
+      { id: "photo", title: "近 6 个月白底照片", detail: "35 × 40 mm，清晰、正面、无遮挡；建议带 2 张。" },
+      { id: "id-card", title: "身份证正反面复印件", detail: "按官方清单准备清晰复印件。" },
+      { id: "hukou", title: "户口本整本复印件", detail: "包含户主页、本人页及变更页；以递签当天最新清单为准。" },
+      { id: "residence", title: "广州领区关系证明", detail: "广东户籍通常用户口本；外省户籍需核对有效居住证或工作/居住证明要求，先向 VFS 确认。" },
+    ],
+  },
+  {
+    title: "03 · 行程真实性",
+    note: "机票、住宿、行程单四处的姓名、日期和城市必须完全一致。",
+    items: [
+      { id: "flight", title: "往返机票订单", detail: "香港 → 罗马 9/26、米兰 → 香港 10/6；姓名拼写与护照一致。" },
+      { id: "hotels", title: "全程 10 晚住宿订单", detail: "Roma 4 晚 / Firenze 3 晚 / Venezia 2 晚 / Milano 1 晚；订单尽量显示三位申请人姓名。" },
+      { id: "itinerary-en", title: "英文旅行行程单", detail: "逐日写城市、主要活动、城际交通与酒店；使用网站「逐日行程」生成签证版。" },
+      { id: "transport", title: "城际交通预订单（可选但建议）", detail: "Roma–Napoli 往返、Roma–Firenze、Firenze–Venezia、Venezia–Milano。" },
+    ],
+  },
+  {
+    title: "04 · 工作与资金",
+    note: "重点是稳定、自然、能解释，不是临时堆余额。",
+    items: [
+      { id: "bank", title: "本人近 3 个月活期银行流水", detail: "优先工资卡；无需用定期存款账户替代。余额要自然覆盖机票、住宿和旅行支出。" },
+      { id: "employment", title: "英文在职证明原件", detail: "公司抬头纸 + 公章 + 签字，写姓名、护照号、职位、收入、入职时间、准假日期、费用承担人和回国后保留职位。" },
+      { id: "business-license", title: "公司营业执照副本复印件", detail: "加盖公司公章；无营业执照的机构按官方清单处理。" },
+      { id: "contract", title: "劳动合同 / 社保 / 个税记录（建议）", detail: "新入职、工资流水不足 3 个月或户籍不在广东时尤其有帮助。" },
+      { id: "funds-note", title: "资金异常说明（如需要）", detail: "大额转入、理财赎回或他人资助要附真实来源；不要临时制造流水。" },
+    ],
+  },
+  {
+    title: "05 · 保险与补充",
+    note: "买保险前先确认保单文字是否完整。",
+    items: [
+      { id: "insurance", title: "英文申根旅行医疗保险", detail: "覆盖整个申根区和往返日期，保额不少于 €30,000，含紧急住院与医疗遣返。" },
+      { id: "cover-letter", title: "英文 Cover Letter（按需）", detail: "用于解释新入职、领区、资金来源、同行关系或其他材料疑点；无疑点不必硬加。" },
+      { id: "assets", title: "辅助资产与旅行记录（可选）", detail: "房产、车辆、个税、旧护照等只放与回国约束或资金来源相关的材料。" },
+      { id: "copies", title: "整套材料扫描备份", detail: "手机 + 云端各存一份；出发时也带签证材料关键页，应对边检抽查。" },
+    ],
+  },
+];
+
+const submitOrder = [
+  "官方 Checklist + 预约确认 + PIPL 同意书",
+  "申根申请表 + 照片",
+  "护照与历史签证 + 身份证 / 户口 / 领区证明",
+  "机票 + 酒店 + 英文行程单 + 城际交通",
+  "旅行保险",
+  "银行流水",
+  "在职证明 + 营业执照",
+  "解释信与补充材料",
+];
+---
+
+<Layout title="申根签证 · 意大利行程准备" description="深圳递交意大利个人旅游申根签的材料清单与时间安排">
+  <PrepNav />
+
+  <main class="visa-page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">SHENZHEN · SCHENGEN C · TOURISM</p>
+        <h1>意大利申根签证</h1>
+        <p class="subtitle">按中国大陆因私护照 · 深圳递交 · 在职申请人整理。三位同行者都要各自准备一套。</p>
+      </div>
+      <aside class="status-card">
+        <span>今天 · 2026-07-15</span>
+        <b>现在先预约递签</b>
+        <p>9/26 出发，只剩约 10 周。先锁预约，再补齐流水、在职和机酒一致性。</p>
+        <a href="https://visa.vfsglobal.com/chn/zh/ita/book-an-appointment" target="_blank" rel="noopener">去 VFS 预约 ↗</a>
+      </aside>
+    </header>
+
+    <section class="scope-alert">
+      <b>这页已纠正原来的“香港护照免签”判断。</b>
+      <p>当前按你在深圳办理申根签证的需求准备。如果实际使用香港特区护照，或职业状态不是在职人员，材料路径会不同，应重新按护照和身份核对。</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">START HERE</p>
+          <h2>官方入口</h2>
+        </div>
+        <p>费用、营业时间和 walk-in 状态会变，以递签当天页面为准。</p>
+      </div>
+      <div class="official-grid">
+        {officialLinks.map(link => (
+          <a href={link.href} target="_blank" rel="noopener">{link.label}<span>↗</span></a>
+        ))}
+      </div>
+      <p class="official-note">
+        深圳中心：福田区滨河大道 9285 号中洲湾 C Future City 东座 23 楼 2301。
+        VFS 各语言页面对近期 walk-in 暂停日期显示不一致，所以以已预约时段为准，出发前再看广州领区通知。
+      </p>
+    </section>
+
+    <section id="documents">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">DOCUMENTS</p>
+          <h2>递签材料清单</h2>
+        </div>
+        <p><span id="visa-progress">0 / 23</span> 已准备 · 勾选只保存在当前浏览器</p>
+      </div>
+
+      <div class="check-groups">
+        {groups.map(group => (
+          <article class="check-group">
+            <header>
+              <h3>{group.title}</h3>
+              <p>{group.note}</p>
+            </header>
+            <div class="items">
+              {group.items.map(item => (
+                <label class="check-item">
+                  <input type="checkbox" data-visa-item={item.id} />
+                  <span class="fake-check" aria-hidden="true"></span>
+                  <span>
+                    <b>{item.title}</b>
+                    <small>{item.detail}</small>
+                  </span>
+                </label>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="funds">
+      <div>
+        <p class="eyebrow">MONEY</p>
+        <h2>银行流水怎么看</h2>
+        <p>官方要求近 3 个月银行对账单，并有单独的入境生活费最低表，但那不是“签证稳过余额”。审核更看重工资入账、日常交易、旅行总成本和余额之间是否自然一致。</p>
+      </div>
+      <ul>
+        <li>不要为了好看，在递签前突然转入无法解释的大额资金</li>
+        <li>若从本人其他账户转入，附对应账户或理财赎回记录</li>
+        <li>机票、住宿已支付的，保留付款凭证帮助解释预算</li>
+        <li><a href="https://www.esteri.it/en/servizi-opportunita/ingressosoggiornoinitalia/mezzi_finanziari/tabella_mezzi_sussistenza/" target="_blank" rel="noopener">意大利外交部生活费标准 ↗</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">ASSEMBLE</p>
+          <h2>最后按这个顺序装材料</h2>
+        </div>
+      </div>
+      <ol class="submit-order">
+        {submitOrder.map((item, index) => <li><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}
+      </ol>
+    </section>
+
+    <section class="help-card">
+      <div>
+        <p class="eyebrow">I CAN PREPARE</p>
+        <h2>我可以直接替你做的文件</h2>
+      </div>
+      <div class="help-grid">
+        <span>英文签证行程单</span>
+        <span>英文在职证明模板</span>
+        <span>Cover Letter</span>
+        <span>申请表逐栏填写稿</span>
+        <span>三人机酒一致性检查</span>
+        <span>流水风险检查</span>
+        <span>递签材料封面与目录</span>
+        <span>最终打印版核对</span>
+      </div>
+      <p>护照、银行流水、公司签章、真实机酒订单、保险保单和指纹必须由本人或真实机构提供，不能代造。</p>
+    </section>
+
+    <footer>
+      <p>官方信息最后核对：2026-07-15。签证规则可能变化，递签前务必重新下载 VFS 最新 Checklist。</p>
+    </footer>
+  </main>
+</Layout>
+
+<script>
+  const storageKey = "italia-cammino-visa-checks-v1";
+  const inputs = Array.from(document.querySelectorAll<HTMLInputElement>("[data-visa-item]"));
+  const progress = document.querySelector<HTMLElement>("#visa-progress");
+
+  const saved = new Set<string>(JSON.parse(localStorage.getItem(storageKey) ?? "[]"));
+  inputs.forEach(input => {
+    input.checked = saved.has(input.dataset.visaItem ?? "");
+  });
+
+  const update = () => {
+    const checked = inputs.filter(input => input.checked);
+    localStorage.setItem(storageKey, JSON.stringify(checked.map(input => input.dataset.visaItem)));
+    if (progress) progress.textContent = checked.length + " / " + inputs.length;
+  };
+
+  inputs.forEach(input => input.addEventListener("change", update));
+  update();
+</script>
+
+<style>
+  .visa-page { max-width: 980px; margin: 0 auto; padding: 42px 24px 90px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .7fr); gap: 44px; align-items: end; margin-bottom: 30px; }
+  .eyebrow { color: var(--era-renaissance); font-size: 10px; letter-spacing: 1.7px; text-transform: uppercase; margin: 0 0 8px; }
+  h1 { font-family: var(--font-serif-zh); font-size: clamp(32px, 5vw, 52px); line-height: 1.15; margin: 0 0 12px; }
+  .subtitle { max-width: 620px; color: var(--text-secondary); font-size: 15px; line-height: 1.75; margin: 0; }
+  .status-card { padding: 18px; background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--era-ancient-rome); border-radius: 8px; }
+  .status-card span { color: var(--text-muted); font-size: 11px; letter-spacing: 1px; }
+  .status-card b { display: block; margin: 7px 0 5px; }
+  .status-card p { color: var(--text-secondary); font-size: 12px; line-height: 1.65; margin: 0 0 12px; }
+  .status-card a { color: var(--era-renaissance); font-size: 13px; }
+
+  section { margin-top: 52px; }
+  .scope-alert { margin-top: 0; padding: 17px 20px; border: 1px solid color-mix(in srgb, var(--era-renaissance) 50%, var(--border)); background: color-mix(in srgb, var(--era-renaissance) 9%, var(--bg-card)); border-radius: 8px; }
+  .scope-alert b { font-size: 14px; }
+  .scope-alert p { color: var(--text-secondary); font-size: 13px; line-height: 1.7; margin: 5px 0 0; }
+  .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 16px; }
+  h2 { font-family: var(--font-serif-zh); font-size: 22px; margin: 0; }
+  .section-head > p { color: var(--text-muted); font-size: 12px; margin: 0; }
+  .official-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .official-grid a { display: flex; justify-content: space-between; gap: 16px; padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 7px; color: var(--text-secondary); font-size: 13px; }
+  .official-grid a:hover { color: var(--text); border-color: var(--era-renaissance); }
+  .official-grid span { color: var(--era-renaissance); }
+  .official-note { color: var(--text-muted); font-size: 11px; line-height: 1.7; margin: 12px 2px 0; }
+
+  .check-groups { display: flex; flex-direction: column; gap: 12px; }
+  .check-group { display: grid; grid-template-columns: 220px 1fr; background: var(--bg-card); border: 1px solid var(--border); border-radius: 9px; overflow: hidden; }
+  .check-group > header { padding: 18px; border-right: 1px solid var(--border); }
+  .check-group h3 { font-family: var(--font-serif-zh); font-size: 16px; margin: 0 0 8px; }
+  .check-group header p { color: var(--text-muted); font-size: 11px; line-height: 1.6; margin: 0; }
+  .items { padding: 4px 18px; }
+  .check-item { display: grid; grid-template-columns: 20px 1fr; position: relative; gap: 11px; padding: 13px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .check-item:last-child { border-bottom: none; }
+  .check-item input { position: absolute; opacity: 0; pointer-events: none; }
+  .fake-check { width: 18px; height: 18px; margin-top: 1px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--bg); }
+  .check-item input:focus-visible + .fake-check { outline: 2px solid var(--era-renaissance); outline-offset: 2px; }
+  .check-item input:checked + .fake-check { background: var(--era-renaissance); border-color: var(--era-renaissance); }
+  .check-item input:checked + .fake-check::after { content: "✓"; display: block; color: #111; font-size: 13px; font-weight: 700; line-height: 17px; text-align: center; }
+  .check-item input:checked ~ span b { color: var(--text-muted); text-decoration: line-through; }
+  .check-item b { display: block; font-size: 13px; margin-bottom: 3px; }
+  .check-item small { display: block; color: var(--text-muted); font-size: 11.5px; line-height: 1.55; }
+
+  .funds { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 24px; border: 1px solid var(--border); border-left: 3px solid var(--era-medieval); border-radius: 8px; }
+  .funds p:not(.eyebrow) { color: var(--text-secondary); font-size: 13px; line-height: 1.75; margin: 10px 0 0; }
+  .funds ul { color: var(--text-secondary); font-size: 12px; line-height: 1.75; margin: 0; padding-left: 20px; }
+  .funds li { margin-bottom: 7px; }
+  .funds a { color: var(--era-renaissance); }
+
+  .submit-order { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0; list-style: none; }
+  .submit-order li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--bg-card); border-radius: 7px; color: var(--text-secondary); font-size: 12px; }
+  .submit-order span { color: var(--era-renaissance); font: 600 11px/1 var(--font-sans); letter-spacing: 1px; }
+
+  .help-card { padding: 26px; background: color-mix(in srgb, var(--era-renaissance) 8%, var(--bg-card)); border: 1px solid var(--border); border-radius: 10px; }
+  .help-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 18px 0; }
+  .help-grid span { padding: 10px; background: var(--bg-card-elevated); border-radius: 6px; color: var(--text-secondary); font-size: 12px; text-align: center; }
+  .help-card > p { color: var(--text-muted); font-size: 11px; margin: 0; }
+  footer { margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 11px; }
+
+  @media (max-width: 760px) {
+    .visa-page { padding: 30px 16px 80px; }
+    .hero, .funds { grid-template-columns: 1fr; gap: 20px; }
+    .section-head { align-items: flex-start; flex-direction: column; gap: 6px; }
+    .official-grid, .submit-order { grid-template-columns: 1fr; }
+    .check-group { grid-template-columns: 1fr; }
+    .check-group > header { border-right: none; border-bottom: 1px solid var(--border); }
+    .help-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

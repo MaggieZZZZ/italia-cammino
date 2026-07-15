@@ -1,0 +1,42 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  { href: "/checklist", label: "准备总览", match: "/checklist" },
+  { href: "/itinerary", label: "逐日行程", match: "/itinerary" },
+  { href: "/visa", label: "申根签证", match: "/visa" },
+];
+---
+
+<nav class="prep-nav" aria-label="行程准备">
+  <span>2026 · 09/26—10/06</span>
+  <div>
+    {links.map(link => (
+      <a href={link.href} class:list={[{ active: path.startsWith(link.match) }]}>{link.label}</a>
+    ))}
+  </div>
+</nav>
+
+<style>
+  .prep-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 24px;
+    border-bottom: 1px solid var(--border);
+    background: #14191f;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .prep-nav > span { letter-spacing: 1px; white-space: nowrap; }
+  .prep-nav div { display: flex; gap: 6px; }
+  .prep-nav a { padding: 6px 11px; border-radius: 999px; white-space: nowrap; }
+  .prep-nav a:hover { color: var(--text); background: var(--bg-card-elevated); }
+  .prep-nav a.active { color: var(--text); background: var(--bg-card-elevated); outline: 1px solid var(--border-strong); }
+
+  @media (max-width: 560px) {
+    .prep-nav { align-items: flex-start; flex-direction: column; padding: 10px 14px; gap: 8px; overflow-x: auto; }
+    .prep-nav div { width: max-content; }
+  }
+</style>

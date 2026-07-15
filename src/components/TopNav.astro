@@ -1,15 +1,16 @@
 ---
 const path = Astro.url.pathname;
 const isActive = (p: string) => p === "/" ? path === "/" : path.startsWith(p);
+const isPreparation = ["/checklist", "/itinerary", "/visa"].some(p => path.startsWith(p));
 ---
 
 <header class="top-nav">
   <a href="/" class="brand">意大利 · 行前</a>
   <nav>
-    <a href="/" class:list={[{ active: isActive("/") && !isActive("/city") && !isActive("/topic") && !isActive("/timeline") && !isActive("/library") && !isActive("/checklist") && !isActive("/about") }]}>地图</a>
+    <a href="/" class:list={[{ active: isActive("/") && !isActive("/city") && !isActive("/topic") && !isActive("/timeline") && !isActive("/library") && !isPreparation && !isActive("/about") }]}>地图</a>
     <a href="/timeline" class:list={[{ active: isActive("/timeline") }]}>时代轴</a>
     <a href="/library" class:list={[{ active: isActive("/library") }]}>书影音</a>
-    <a href="/checklist" class:list={[{ active: isActive("/checklist") }]}>行前</a>
+    <a href="/checklist" class:list={[{ active: isPreparation }]}>行程准备</a>
     <a href="/about" class:list={[{ active: isActive("/about") }]}>关于</a>
   </nav>
 </header>
@@ -22,7 +23,11 @@ const isActive = (p: string) => p === "/" ? path === "/" : path.startsWith(p);
   .top-nav nav a.active { color: var(--text); border-bottom: 2px solid var(--era-renaissance); padding-bottom: 4px; }
   @media (max-width: 768px) {
     .top-nav { padding: 10px 14px; }
-    .top-nav nav { gap: 14px; font-size: 13px; }
+    .top-nav nav { gap: 12px; font-size: 13px; }
     .brand { font-size: 13px; }
+  }
+  @media (max-width: 560px) {
+    .brand { display: none; }
+    .top-nav nav { width: 100%; justify-content: space-between; gap: 8px; }
   }
 </style>

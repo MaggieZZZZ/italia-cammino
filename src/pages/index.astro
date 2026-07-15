@@ -22,6 +22,10 @@ const candidates = cities.filter(c => c.data.status === "candidate");
       <div class="label">SEPTEMBER 2026 · 行前准备</div>
       <h2>三个人的意大利</h2>
       <p class="hint">点地图上的城市看那里的故事。<b>罗马进 · 米兰出</b>。其他可加。</p>
+      <a class="prep-cta" href="/checklist">
+        <span>行程准备中心</span>
+        <b>路线 · 签证 · 预约 · 行李 →</b>
+      </a>
 
       {confirmed.length > 0 && (
         <>
@@ -80,6 +84,10 @@ const candidates = cities.filter(c => c.data.status === "candidate");
   .label { color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin: 12px 0 8px; }
   h2 { margin: 4px 0 8px; color: var(--text); font-family: var(--font-serif-zh); font-size: 20px; }
   .hint { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin: 0 0 12px; }
+  .prep-cta { display: flex; flex-direction: column; gap: 3px; margin: 14px 0 18px; padding: 11px 12px; border: 1px solid var(--border); border-left: 3px solid var(--era-renaissance); border-radius: 6px; background: var(--bg-card-elevated); }
+  .prep-cta span { color: var(--text-muted); font-size: 10px; letter-spacing: 1px; }
+  .prep-cta b { color: var(--text); font-size: 12px; }
+  .prep-cta:hover { border-color: var(--era-renaissance); }
   .city-list { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-direction: column; gap: 6px; }
   .city-list a { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: var(--bg-card-elevated); border-radius: 6px; font-size: 13px; transition: background 0.15s; }
   .city-list a:hover { background: #2a3340; }

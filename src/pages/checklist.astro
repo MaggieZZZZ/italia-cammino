@@ -1,21 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PrepNav from "../components/PrepNav.astro";
 
-// 倒推：今天 2026-05-23，出发 2026-09-26
+// 按 2026-07-15 状态倒推，出发 2026-09-26
 const bookings = [
-  { when: "立即", urgency: "now", item: "护照有效期检查", url: "", note: "必须有效至 2027-04 以后（出发后 6 个月）" },
-  { when: "立即", urgency: "now", item: "ETIAS 申请（如已启动）", url: "https://travel-europe.europa.eu", note: "EU 新政，HK 护照需要在线申请 €7，3 年有效。出发前 30 天必备" },
-  { when: "立即", urgency: "now", item: "旅行保险", url: "", note: "选含医疗 €30k + 取消 + 行李丢失。美亚 / 安联 / World Nomads 都行" },
-  { when: "6 月初", urgency: "soon", item: "全程住宿订定", url: "https://airbnb.com", note: "5 城 4 处住宿（Roma 4 晚 / Firenze 3 晚 / Venezia 2 晚 / Milano 1 晚）" },
-  { when: "🔴 2026-06-24 中午 12:00 CET (HK 18:00)", urgency: "critical", item: "Cenacolo 最后的晚餐", url: "https://cenacolovinciano.org", note: "按季度开放！6 月中旬开始每天看官网确认确切日期，分秒级售空" },
-  { when: "2026-07-27 (60 天前)", urgency: "schedule", item: "梵蒂冈博物馆", url: "https://www.museivaticani.va", note: "选早进场 €25" },
-  { when: "2026-07-27 (60 天前)", urgency: "schedule", item: "Uffizi 美术馆 Firenze", url: "https://www.uffizi.it", note: "9/30 下午时段" },
-  { when: "2026-08-02 (60 天前)", urgency: "schedule", item: "Accademia Firenze (David)", url: "https://www.gallerieaccademia.it", note: "10/1 下午时段" },
+  { when: "🔴 立即", urgency: "critical", item: "预约意大利申根签递交", url: "https://visa.vfsglobal.com/chn/zh/ita/book-an-appointment", note: "深圳 VFS；三位申请人各自一套材料。先锁预约，再准备打印件" },
+  { when: "🔴 立即核对", urgency: "critical", item: "Cenacolo 最后的晚餐", url: "https://cenacolovinciano.org", note: "9–12 月票已于 6/23 12:00 CET 开售；如未订到，持续看官方退票与增补场次" },
+  { when: "立即", urgency: "now", item: "护照、领区与签证材料", url: "/visa", note: "护照、户口/居住证明、近 3 月流水、在职证明、营业执照先准备" },
+  { when: "立即", urgency: "now", item: "全程住宿订定", url: "", note: "4 座住宿城市共 10 晚：Roma 4 / Firenze 3 / Venezia 2 / Milano 1" },
+  { when: "立即", urgency: "now", item: "申根旅行医疗保险", url: "", note: "签证材料：覆盖申根及往返日期，医疗不少于 €30,000，含紧急医疗遣返" },
+  { when: "立即查看余票", urgency: "now", item: "Uffizi 美术馆 Firenze", url: "https://www.uffizi.it/en/tickets", note: "目标 9/30 下午；2026 官方预售票为实名票" },
+  { when: "2026-07-27 前后", urgency: "soon", item: "梵蒂冈博物馆", url: "https://www.museivaticani.va", note: "目标 9/28 早场；只从官方票务入口购买" },
+  { when: "2026-08-02 前后", urgency: "soon", item: "Accademia Firenze (David)", url: "https://www.galleriaaccademiafirenze.it/en/tickets/", note: "目标 10/1 下午；开放后立即选时段" },
   { when: "2026-08-27 (30 天前)", urgency: "schedule", item: "Colosseo + Foro + Palatino", url: "https://parcocolosseo.it", note: "联票 €18，9/27 早 09:00" },
   { when: "2026-08-27 (30 天前)", urgency: "schedule", item: "Duomo Milano (含屋顶)", url: "https://www.duomomilano.it", note: "10/5 下午" },
   { when: "2026-09-01 (25 天前)", urgency: "schedule", item: "Duomo Firenze Cupola", url: "https://duomo.firenze.it", note: "10/1 早 08:30 登顶" },
   { when: "2026-09-05 (3 周前)", urgency: "schedule", item: "庞贝古城", url: "https://pompeiisites.org", note: "9/29 早场" },
-  { when: "2026-09-05 (3 周前)", urgency: "schedule", item: "高铁全程", url: "https://www.trenitalia.com", note: "5 段 Frecciarossa，提前订 €30/段 vs 临时 €70" },
+  { when: "7–8 月", urgency: "soon", item: "高铁全程", url: "https://www.trenitalia.com/en.html", note: "班次出现后即可比价：Napoli 往返 + Roma–Firenze–Venezia–Milano" },
   { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Basilica San Marco", url: "https://www.basilicasanmarco.it", note: "10/3 下午" },
   { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Palazzo Ducale Venezia", url: "https://palazzoducale.visitmuve.it", note: "10/3 下午联票 €30" },
   { when: "2026-09-10 (2 周前)", urgency: "schedule", item: "Peggy Guggenheim", url: "https://www.guggenheim-venice.it", note: "10/4 下午" },
@@ -24,26 +25,51 @@ const bookings = [
 ];
 ---
 
-<Layout title="行前清单 · 意大利">
-  <nav class="breadcrumb">
-    <a href="/">← 地图</a>
-    <span>/</span>
-    <b>行前</b>
-  </nav>
+<Layout title="行程准备中心 · 意大利">
+  <PrepNav />
 
   <div class="checklist-page">
-    <header>
-      <h1>行前清单</h1>
-      <p class="subtitle">出发 2026-09-26 香港直飞罗马 · 回程 2026-10-06 米兰直飞香港 · 3 人组</p>
+    <header class="page-header">
+      <p class="eyebrow">TRIP CONTROL CENTER</p>
+      <h1>行程准备中心</h1>
+      <p class="subtitle">2026-09-26 香港直飞罗马 · 2026-10-06 米兰直飞香港 · 3 人组</p>
     </header>
 
+    <section class="module-grid">
+      <a href="/itinerary">
+        <span>01</span>
+        <b>逐日行程</b>
+        <p>4—3—2—1 北上路线、每天怎么玩、吃什么、怎么移动。</p>
+        <em>11 天 · 10 晚 →</em>
+      </a>
+      <a href="/visa">
+        <span>02</span>
+        <b>申根签证</b>
+        <p>深圳 VFS 预约、23 项材料清单、资金与装订顺序。</p>
+        <em>现在优先处理 →</em>
+      </a>
+      <a href="#bookings">
+        <span>03</span>
+        <b>门票与交通</b>
+        <p>按开放窗口排列的预约任务，只走官方购票入口。</p>
+        <em>看时间表 ↓</em>
+      </a>
+      <a href="#departure">
+        <span>04</span>
+        <b>出发准备</b>
+        <p>行李、App、安全、三人协作和票据备份。</p>
+        <em>看出发清单 ↓</em>
+      </a>
+    </section>
+
     <section>
-      <h2>📋 现在就做（出发前 4 个月+）</h2>
+      <h2>📋 现在就做</h2>
       <ul class="task-list">
-        <li><b>护照</b>：有效期至少 2027-04 之后</li>
-        <li><b>申根签证</b>：HK 特区护照 90 天免签到欧盟（无需办理）</li>
-        <li><b>ETIAS</b>：如果届时已启动，每人 €7 在线申请，3 年有效（出发前 30 天必须做）</li>
-        <li><b>旅行保险</b>：医疗 €30,000 + 取消 + 行李丢失。安联 / 美亚 / Allianz / World Nomads 任选</li>
+        <li><b>申根签证</b>：立即预约深圳 VFS，并开始准备三套独立材料；<a href="/visa">打开签证专页 →</a></li>
+        <li><b>护照</b>：至少 2 页空白页；官方最低离开申根后有效 3 个月，建议按 6 个月留余量</li>
+        <li><b>旅行保险</b>：签证要求医疗不少于 €30,000，覆盖申根区、完整往返日期、紧急医疗与遣返</li>
+        <li><b>机酒一致</b>：四家住宿覆盖 10 晚，三位姓名与护照拼写一致</li>
+        <li><b>签证行程单</b>：先以<a href="/itinerary">逐日行程</a>为骨架，酒店和火车确定后生成英文递签版</li>
         <li><b>国际驾照</b>：仅 backup（这次不开车不需要）</li>
         <li><b>通知信用卡公司</b>：境外消费提醒，避免被冻结。建议带 2 张不同发卡行（Visa + Mastercard）</li>
         <li><b>欧元现金</b>：每人备 €300-500 应急（小店 / Trastevere 餐厅可能只收现金）</li>
@@ -51,7 +77,7 @@ const bookings = [
       </ul>
     </section>
 
-    <section>
+    <section id="bookings">
       <h2>🗓 订票时间表</h2>
       <p class="hint">按这个顺序订。<b>红色 = 必抢</b>，其他按日期到了再办。</p>
       <div class="booking-table">
@@ -72,7 +98,7 @@ const bookings = [
       </div>
     </section>
 
-    <section>
+    <section id="departure">
       <h2>🎒 行李清单</h2>
       <div class="two-col">
         <div>
@@ -160,13 +186,10 @@ const bookings = [
 </Layout>
 
 <style>
-  .breadcrumb { padding: 12px 24px; border-bottom: 1px solid var(--border); background: #1a1a1a; font-size: 13px; color: var(--text-muted); display: flex; gap: 8px; }
-  .breadcrumb a { color: var(--text-muted); }
-  .breadcrumb b { color: var(--text); }
-
-  .checklist-page { max-width: 820px; margin: 0 auto; padding: 32px 24px 80px; }
-  header { margin-bottom: 32px; }
-  h1 { font-family: var(--font-serif-zh); font-size: 28px; margin: 0 0 6px; }
+  .checklist-page { max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
+  .page-header { margin-bottom: 28px; }
+  .eyebrow { color: var(--era-renaissance); font-size: 10px; letter-spacing: 1.7px; margin: 0 0 8px; }
+  h1 { font-family: var(--font-serif-zh); font-size: clamp(32px, 5vw, 48px); margin: 0 0 6px; }
   .subtitle { color: var(--text-muted); font-size: 13px; margin: 0; }
 
   section { margin-top: 36px; }
@@ -177,6 +200,15 @@ const bookings = [
   .task-list { color: var(--text-secondary); font-size: 14px; line-height: 1.85; padding-left: 20px; margin: 0; }
   .task-list li { margin-bottom: 6px; }
   .task-list b { color: var(--text); }
+  .task-list a { color: var(--era-renaissance); }
+
+  .module-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 0; }
+  .module-grid > a { display: flex; flex-direction: column; min-height: 190px; padding: 17px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; }
+  .module-grid > a:hover { border-color: var(--era-renaissance); }
+  .module-grid span { color: var(--text-muted); font-size: 10px; letter-spacing: 1px; }
+  .module-grid b { font-family: var(--font-serif-zh); font-size: 17px; margin: 13px 0 7px; }
+  .module-grid p { color: var(--text-muted); font-size: 11.5px; line-height: 1.65; margin: 0; }
+  .module-grid em { color: var(--era-renaissance); font-size: 11px; font-style: normal; margin-top: auto; padding-top: 14px; }
 
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
@@ -195,10 +227,16 @@ const bookings = [
   .cell.item a:hover { text-decoration: underline; }
   .cell.note { color: var(--text-muted); }
   @media (max-width: 768px) {
+    .checklist-page { padding: 30px 16px 80px; }
+    .module-grid { grid-template-columns: repeat(2, 1fr); }
     .row { grid-template-columns: 1fr; gap: 4px; padding: 12px 14px; }
     .row.header-row { display: none; }
     .cell.when { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
     .cell.item { font-size: 14px; }
+  }
+  @media (max-width: 480px) {
+    .module-grid { grid-template-columns: 1fr; }
+    .module-grid > a { min-height: 150px; }
   }
 
   .meta { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
