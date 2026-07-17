@@ -2,10 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import PrepNav from "../components/PrepNav.astro";
 
-// 按 2026-07-15 状态倒推，出发 2026-09-26
+// 按 2026-07-17 状态倒推，出发 2026-09-26
 const bookings = [
-  { when: "✅ 已约 · 2026-07-22", urgency: "done", item: "意大利申根签递交", url: "/visa", note: "深圳 VFS；带齐三套独立材料和预约确认单" },
-  { when: "✅ 已约 · 2026-10-03 11:30", urgency: "done", item: "Cenacolo 最后的晚餐", url: "https://cenacolovinciano.org", note: "米兰固定锚点；建议 11:00 前抵达取票 / 核验，当天 Firenze → Milano → Venezia" },
+  { when: "✅ 已约 · 2026-07-22", urgency: "done", item: "意大利申根签递交", url: "/visa", note: "深圳 / 上海 / 成都三地；四人各带一套独立材料和预约确认单" },
+  { when: "⚠️ 已约 · 2026-10-03 11:30", urgency: "critical", item: "Cenacolo 最后的晚餐", url: "https://cenacolovinciano.org", note: "预约早于第 4 人加入：立即核对订单是否已有 4 席；当天 Firenze → Milano → Venezia" },
   { when: "立即", urgency: "now", item: "护照、领区与签证材料", url: "/visa", note: "护照、户口/居住证明、近 3 月流水、在职证明、营业执照先准备" },
   { when: "立即", urgency: "now", item: "全程住宿订定", url: "", note: "4 座住宿城市共 10 晚：Roma 4 / Firenze 3 / Venezia 2 / Milano 1" },
   { when: "立即", urgency: "now", item: "申根旅行医疗保险", url: "", note: "签证材料：覆盖申根及往返日期，医疗不少于 €30,000，含紧急医疗遣返" },
@@ -32,7 +32,7 @@ const bookings = [
     <header class="page-header">
       <p class="eyebrow">TRIP CONTROL CENTER</p>
       <h1>行程准备中心</h1>
-      <p class="subtitle">2026-09-26 香港直飞罗马 · 2026-10-06 米兰直飞香港 · 3 人组</p>
+      <p class="subtitle">2026-09-26 罗马会合 · 2026-10-06 米兰离境 · 4 人组（香港 2 / 上海 1 / 成都 1）</p>
     </header>
 
     <section class="module-grid">
@@ -45,7 +45,7 @@ const bookings = [
       <a href="/visa">
         <span>02</span>
         <b>申根签证</b>
-        <p>深圳 VFS 预约、23 项材料清单、资金与装订顺序。</p>
+        <p>深圳、上海、成都三地递签，四套材料与各领区表格。</p>
         <em>现在优先处理 →</em>
       </a>
       <a href="#bookings">
@@ -57,7 +57,7 @@ const bookings = [
       <a href="#departure">
         <span>04</span>
         <b>出发准备</b>
-        <p>行李、App、安全、三人协作和票据备份。</p>
+        <p>行李、App、安全、四人协作和票据备份。</p>
         <em>看出发清单 ↓</em>
       </a>
     </section>
@@ -65,11 +65,12 @@ const bookings = [
     <section>
       <h2>📋 现在就做</h2>
       <ul class="task-list">
-        <li><b>申根签证</b>：已约 7 月 22 日深圳 VFS；现在逐项备齐三套独立材料；<a href="/visa">打开签证专页 →</a></li>
-        <li><b>最后的晚餐</b>：已约 10 月 3 日 11:30；当天路线固定为 Firenze → Milano → Venezia</li>
+        <li><b>申根签证</b>：7 月 22 日分别在深圳、上海、成都递交；现在逐项备齐四套独立材料；<a href="/visa">打开签证专页 →</a></li>
+        <li><b>最后的晚餐</b>：已约 10 月 3 日 11:30；<b>立即核对订单是否覆盖新加入成员，共 4 席</b></li>
         <li><b>护照</b>：至少 2 页空白页；官方最低离开申根后有效 3 个月，建议按 6 个月留余量</li>
         <li><b>旅行保险</b>：签证要求医疗不少于 €30,000，覆盖申根区、完整往返日期、紧急医疗与遣返</li>
-        <li><b>机酒一致</b>：四家住宿覆盖 10 晚，三位姓名与护照拼写一致</li>
+        <li><b>机酒一致</b>：四家住宿覆盖 10 晚，四位姓名与护照拼写一致；国际航班按香港 / 上海 / 成都三组分别附单</li>
+        <li><b>所有共同预订</b>：酒店、意大利高铁、博物馆和餐厅统一检查数量是否为 4</li>
         <li><b>签证行程单</b>：先以<a href="/itinerary">逐日行程</a>为骨架，酒店和火车确定后生成英文递签版</li>
         <li><b>国际驾照</b>：仅 backup（这次不开车不需要）</li>
         <li><b>通知信用卡公司</b>：境外消费提醒，避免被冻结。建议带 2 张不同发卡行（Visa + Mastercard）</li>
@@ -156,9 +157,10 @@ const bookings = [
     </section>
 
     <section>
-      <h2>👯 三人协作</h2>
+      <h2>👯 四人协作</h2>
       <ul class="task-list">
-        <li><b>分工建议</b>：每人主导一类预订（例如 A 负责博物馆票 / B 负责高铁 / C 负责餐厅 + 住宿）</li>
+        <li><b>分工建议</b>：A 负责博物馆票 / B 负责高铁 / C 负责餐厅 / D 负责住宿与订单人数复核</li>
+        <li><b>罗马会合</b>：上海、成都航班确认后，写清最晚抵达时间、酒店地址与机场到市区方案</li>
         <li><b>共享文档</b>：开个 Google Drive 文件夹，所有 PDF 票放进去</li>
         <li><b>微信群</b>：发预订确认邮件截图存档</li>
         <li><b>失散预案</b>：约 Roma Termini 中央大厅 Feltrinelli 书店门口集合（明显 + 24h 开放）</li>
